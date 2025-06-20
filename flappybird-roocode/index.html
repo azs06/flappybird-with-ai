@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird Clone</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Preload assets -->
+    <link rel="preload" href="bird.png" as="image">
+    <link rel="preload" href="pipe.png" as="image">
+    <link rel="preload" href="background.png" as="image">
+    <link rel="preload" href="ground.png" as="image">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    
+    <!-- Hidden assets -->
+    <img id="birdSprite" src="bird.png" class="hidden">
+    <img id="pipeSprite" src="pipe.png" class="hidden">
+    <img id="bgSprite" src="background.png" class="hidden">
+    <img id="groundSprite" src="ground.png" class="hidden">
+    
+    <!-- Audio elements -->
+    <audio id="jumpSound" src="jump.wav" preload="auto"></audio>
+    <audio id="scoreSound" src="score.wav" preload="auto"></audio>
+    <audio id="hitSound" src="hit.wav" preload="auto"></audio>
+    
+    <script src="game.js"></script>
+</body>
+</html>

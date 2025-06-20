@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Flappy Bird Clone - A modern web-based game built with HTML5 Canvas and JavaScript">
+    <meta name="keywords" content="flappy bird, game, html5, canvas, javascript">
+    <meta name="author" content="Flappy Bird Clone">
+    
+    <!-- Prevent zooming on mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- iOS specific meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Flappy Bird">
+    
+    <!-- Android specific meta tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#70c5ce">
+    
+    <title>🎮 Flappy Bird Clone</title>
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="src/css/styles.css" as="style">
+    <link rel="stylesheet" href="src/css/styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐦</text></svg>">
+</head>
+<body>
+    <!-- Game Container -->
+    <div id="gameContainer" class="game-container">
+        <!-- Main Game Canvas -->
+        <canvas id="gameCanvas" class="game-canvas" width="400" height="600">
+            <p class="no-canvas-support">
+                Your browser doesn't support HTML5 Canvas. Please upgrade to a modern browser to play this game.
+                <br><br>
+                Supported browsers:
+                <ul>
+                    <li>Chrome 70+</li>
+                    <li>Firefox 65+</li>
+                    <li>Safari 12+</li>
+                    <li>Edge 79+</li>
+                </ul>
+            </p>
+        </canvas>
+        
+        <!-- Loading Screen -->
+        <div id="loadingScreen" class="loading-screen">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <h2>Loading Game...</h2>
+                <p>Preparing your flight experience</p>
+            </div>
+        </div>
+        
+        <!-- Game UI Overlay -->
+        <div id="gameUI" class="game-ui">
+            <!-- Start Screen -->
+            <div id="startScreen" class="screen start-screen active">
+                <div class="screen-content">
+                    <h1 class="game-title">🐦 Flappy Bird</h1>
+                    <p class="game-subtitle">Tap or press spacebar to fly</p>
+                    <div class="instructions">
+                        <div class="instruction-item">
+                            <span class="instruction-icon">🖱️</span>
+                            <span class="instruction-text">Click to jump</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="instruction-icon">📱</span>
+                            <span class="instruction-text">Tap to jump</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="instruction-icon">⌨️</span>
+                            <span class="instruction-text">Spacebar to jump</span>
+                        </div>
+                    </div>
+                    <button id="startButton" class="game-button primary">
+                        Start Game
+                    </button>
+                    <div class="high-score-display">
+                        <span>High Score: </span>
+                        <span id="highScoreValue">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game HUD -->
+            <div id="gameHUD" class="screen game-hud">
+                <div class="score-display">
+                    <span id="currentScore" class="score-value">0</span>
+                </div>
+                <button id="pauseButton" class="game-button small pause-btn">⏸️</button>
+            </div>
+            
+            <!-- Game Over Screen -->
+            <div id="gameOverScreen" class="screen game-over-screen">
+                <div class="screen-content">
+                    <h2 class="game-over-title">Game Over!</h2>
+                    <div class="final-score">
+                        <div class="score-item">
+                            <span class="score-label">Score:</span>
+                            <span id="finalScore" class="score-value">0</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Best:</span>
+                            <span id="bestScore" class="score-value">0</span>
+                        </div>
+                    </div>
+                    <div class="game-over-buttons">
+                        <button id="restartButton" class="game-button primary">
+                            Play Again
+                        </button>
+                        <button id="menuButton" class="game-button secondary">
+                            Main Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pause Screen -->
+            <div id="pauseScreen" class="screen pause-screen">
+                <div class="screen-content">
+                    <h2 class="pause-title">Game Paused</h2>
+                    <div class="pause-buttons">
+                        <button id="resumeButton" class="game-button primary">
+                            Resume
+                        </button>
+                        <button id="pauseMenuButton" class="game-button secondary">
+                            Main Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Audio Controls -->
+        <div id="audioControls" class="audio-controls">
+            <button id="muteButton" class="audio-button" title="Toggle Sound">
+                <span class="audio-icon">🔊</span>
+            </button>
+        </div>
+        
+        <!-- Debug Info (hidden by default) -->
+        <div id="debugInfo" class="debug-info" style="display: none;">
+            <div>FPS: <span id="fpsCounter">60</span></div>
+            <div>Delta: <span id="deltaTime">16</span>ms</div>
+            <div>Objects: <span id="objectCount">0</span></div>
+        </div>
+    </div>
+    
+    <!-- Error Fallback -->
+    <div id="errorScreen" class="error-screen" style="display: none;">
+        <div class="error-content">
+            <h2>⚠️ Game Error</h2>
+            <p>Something went wrong while loading the game.</p>
+            <button onclick="location.reload()" class="game-button primary">
+                Reload Game
+            </button>
+        </div>
+    </div>
+    
+    <!-- Game Scripts -->
+    <script type="module" src="src/js/constants.js"></script>
+    <script type="module" src="src/js/physics.js"></script>
+    <script type="module" src="src/js/audio.js"></script>
+    <script type="module" src="src/js/bird.js"></script>
+    <script type="module" src="src/js/pipes.js"></script>
+    <script type="module" src="src/js/game.js"></script>
+    
+    <!-- Initialize Game -->
+    <script type="module">
+        import { Game } from './src/js/game.js';
+        
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                // Initialize the game
+                const game = new Game();
+                
+                // Make game globally accessible for debugging
+                window.game = game;
+                
+                // Start the game
+                game.init();
+                
+            } catch (error) {
+                console.error('Failed to initialize game:', error);
+                
+                // Show error screen
+                document.getElementById('gameContainer').style.display = 'none';
+                document.getElementById('errorScreen').style.display = 'flex';
+            }
+        });
+        
+        // Handle page visibility changes (pause when tab is hidden)
+        document.addEventListener('visibilitychange', () => {
+            if (window.game) {
+                if (document.hidden) {
+                    window.game.handleVisibilityChange(false);
+                } else {
+                    window.game.handleVisibilityChange(true);
+                }
+            }
+        });
+        
+        // Prevent context menu on right click (for better mobile experience)
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+        
+        // Prevent default touch behaviors that might interfere with the game
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.game-container')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (e.target.closest('.game-container')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
