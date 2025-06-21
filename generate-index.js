@@ -18,6 +18,9 @@ function generateIndex() {
         .map(item => item.name)
         .sort();
     
+    // Extract URLs from markdown files
+    const markdownUrls = extractUrlsFromMarkdown(currentDir);
+    
     // Generate HTML content
     const html = `<!DOCTYPE html>
 <html lang="en">
@@ -97,7 +100,7 @@ function generateIndex() {
     <h1>🎮 Flappy Bird AI Implementations</h1>
     
     <div class="stats">
-        <p>📁 ${directories.length} Directory Implementations | 📄 ${htmlFiles.length} Single File Implementations</p>
+        <p>📁 ${directories.length} Directory Implementations | 📄 ${htmlFiles.length} Single File Implementations | 🔗 ${markdownUrls.length} Online Implementations</p>
     </div>
 
     ${directories.length > 0 ? `
@@ -134,6 +137,20 @@ function generateIndex() {
         </div>
     </div>` : ''}
 
+    ${markdownUrls.length > 0 ? `
+    <div class="section">
+        <h2>🔗 Online Implementations</h2>
+        <div class="links">
+            ${markdownUrls.map(item => `
+            <div class="link-item">
+                <a href="${item.url}" target="_blank" rel="noopener noreferrer">
+                    <span class="game-icon">🌐</span>${item.name}
+                </a>
+                <p class="link-description">${getDescription(item.name)} - Live demo</p>
+            </div>`).join('')}
+        </div>
+    </div>` : ''}
+
     <div class="section">
         <h2>📋 About This Collection</h2>
         <p>This collection contains various implementations of the Flappy Bird game created by different AI tools. Each implementation demonstrates different approaches to building the same game using HTML, CSS, and JavaScript.</p>
@@ -154,7 +171,49 @@ function generateIndex() {
     // Write the index.html file
     fs.writeFileSync(path.join(currentDir, 'index.html'), html);
     console.log('✅ Generated index.html successfully!');
-    console.log(`📁 Found ${directories.length} directories and ${htmlFiles.length} HTML files`);
+    console.log(`📁 Found ${directories.length} directories, ${htmlFiles.length} HTML files, and ${markdownUrls.length} online implementations`);
+}
+
+function extractUrlsFromMarkdown(currentDir) {
+    const markdownFiles = fs.readdirSync(currentDir)
+        .filter(file => file.endsWith('.md') && file !== 'readme.md' && file !== 'CLAUDE.md')
+        .sort();
+    
+    const urls = [];
+    
+    markdownFiles.forEach(file => {
+        try {
+            const content = fs.readFileSync(path.join(currentDir, file), 'utf8').trim();
+            
+            // Check if the entire content is just a URL
+            if (content.match(/^https?:\/\/[^\s]+$/)) {
+                const name = file.replace('.md', '').replace('flappybird-', '');
+                urls.push({
+                    name: name,
+                    url: content,
+                    filename: file
+                });
+            } else {
+                // Extract URLs from markdown content
+                const urlRegex = /https?:\/\/[^\s\)]+/g;
+                const foundUrls = content.match(urlRegex);
+                
+                if (foundUrls && foundUrls.length > 0) {
+                    const name = file.replace('.md', '').replace('flappybird-', '');
+                    // Use the first URL found
+                    urls.push({
+                        name: name,
+                        url: foundUrls[0],
+                        filename: file
+                    });
+                }
+            }
+        } catch (error) {
+            console.warn(`⚠️  Could not read ${file}: ${error.message}`);
+        }
+    });
+    
+    return urls;
 }
 
 function getDescription(name) {
@@ -173,7 +232,10 @@ function getDescription(name) {
         'flappybird-chatgpt-online': 'ChatGPT web interface - GTP-03-high model',
         'flappybird-claude-online': 'Claude web interface - Claude 4 Opus',
         'flappybird-deepseek-online': 'DeepSeek web interface implementation',
-        'flappybird-gemini2.5pro-online': 'Gemini 2.5 Pro web interface'
+        'flappybird-gemini2.5pro-online': 'Gemini 2.5 Pro web interface',
+        'v0dev': 'V0.dev - AI-powered development platform',
+        'loveable': 'Loveable - React-based development (ignored HTML requirement)',
+        'bolt.new': 'Bolt.new - Quick web app generator'
     };
     
     return descriptions[name] || 'AI-generated Flappy Bird implementation';
