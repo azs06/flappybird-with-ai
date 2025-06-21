@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flappy Bird Clone</title>
+    <style>
+      /* ----------  Global styles  ---------- */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #70c5ce; /* light‑sky background */
+        color: #fff;
+        font-family: system-ui, sans-serif;
+        user-select: none;
+      }
+
+      /* ----------  Game canvas  ---------- */
+      canvas {
+        border: 2px solid #fff;
+        background: #70c5ce; /* same as body so the border stands out */
+      }
+
+      /* ----------  HUD  ---------- */
+      #hud {
+        margin-top: 0.5rem;
+        text-align: center;
+        font-size: 1.25rem;
+        line-height: 1.4;
+      }
+      #hud small {
+        font-size: 0.8rem;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="game" width="400" height="600"></canvas>
+
+    <div id="hud">
+      <div>Score: <span id="score">0</span></div>
+      <div>Best: <span id="best">0</span></div>
+      <small>Click / tap or press <kbd>SPACE</kbd> to flap — <kbd>R</kbd> to restart</small>
+    </div>
+
+    <script>
+      /* ========================================================
+       *  Flappy Bird — vanilla JS, HTML & CSS (single‑file demo)
+       * ====================================================== */
+
+      // ----------  Constants  ----------
+      const canvas = document.getElementById("game");
+      const ctx = canvas.getContext("2d");
+
+      const GRAVITY = 0.5; // downward acceleration per frame
+      const FLAP_VELOCITY = -8; // immediate velocity when the bird flaps
+      const BIRD_SIZE = 24; // width & height of the bird square
+
+      const PIPE_WIDTH = 60;
+      const PIPE_GAP = 150; // vertical gap between top & bottom pipes
+      const PIPE_SPEED = 2; // horizontal pipe speed (px per frame)
+      const PIPE_INTERVAL = 1600; // ms between two new pipe pairs
+
+      // ----------  Game state  ----------
+      const STATE = {
+        START: 0,
+        PLAYING: 1,
+        GAME_OVER: 2,
+      };
+      let state; // current game state
+
+      let birdY, birdV; // vertical position & velocity of the bird
+      let pipes; // array of { x, top } objects (bottom pipe derived)
+      let score, best;
+      let lastPipeTime; // timestamp when last pipe was spawned
+      let lastFrame; // timestamp of previous animation frame
+
+      // ----------  Helpers  ----------
+      const $score = document.getElementById("score");
+      const $best = document.getElementById("best");
+      best = +localStorage.getItem("flappyBest") || 0;
+      $best.textContent = best;
+
+      function reset() {
+        birdY = canvas.height / 2 - BIRD_SIZE / 2;
+        birdV = 0;
+        pipes = [];
+        score = 0;
+        $score.textContent = score;
+        state = STATE.START;
+        lastPipeTime = performance.now();
+      }
+
+      function flap() {
+        if (state === STATE.START) state = STATE.PLAYING;
+        if (state === STATE.PLAYING) birdV = FLAP_VELOCITY;
+      }
+
+      function gameOver() {
+        if (state !== STATE.PLAYING) return;
+        state = STATE.GAME_OVER;
+        best = Math.max(best, score);
+        localStorage.setItem("flappyBest", best);
+        $best.textContent = best;
+      }
+
+      function spawnPipe() {
+        const minTop = 50;
+        const maxTop = canvas.height - PIPE_GAP - 100; // keep bottom pipe visible
+        const top = Math.random() * (maxTop - minTop) + minTop;
+        pipes.push({ x: canvas.width, top, scored: false });
+      }
+
+      // Update logic runs once per frame
+      function update(dt) {
+        if (state !== STATE.PLAYING) return;
+
+        // Bird physics
+        birdV += GRAVITY;
+        birdY += birdV;
+
+        // Spawn new pipes
+        if (performance.now() - lastPipeTime > PIPE_INTERVAL) {
+          spawnPipe();
+          lastPipeTime = performance.now();
+        }
+
+        // Move pipes & detect collisions
+        for (let i = pipes.length - 1; i >= 0; i--) {
+          const p = pipes[i];
+          p.x -= PIPE_SPEED;
+
+          // Collision check: horizontal overlap first
+          const birdLeft = 20;
+          const birdRight = birdLeft + BIRD_SIZE;
+          const pipeLeft = p.x;
+          const pipeRight = p.x + PIPE_WIDTH;
+
+          if (
+            birdRight > pipeLeft &&
+            birdLeft < pipeRight &&
+            (birdY < p.top || birdY + BIRD_SIZE > p.top + PIPE_GAP)
+          ) {
+            gameOver();
+          }
+
+          // Increase score when the pipe passes the bird
+          if (!p.scored && p.x + PIPE_WIDTH < birdLeft) {
+            p.scored = true;
+            score++;
+            $score.textContent = score;
+          }
+
+          // Remove pipes that are off‑screen
+          if (p.x + PIPE_WIDTH < 0) pipes.splice(i, 1);
+        }
+
+        // Collision with ground / ceiling
+        if (birdY + BIRD_SIZE > canvas.height || birdY < 0) {
+          gameOver();
+        }
+      }
+
+      // Draw everything (runs every frame)
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw bird (simple yellow square)
+        ctx.fillStyle = "#ff0";
+        ctx.fillRect(20, birdY, BIRD_SIZE, BIRD_SIZE);
+
+        // Draw pipes
+        ctx.fillStyle = "#2ecc40";
+        pipes.forEach((p) => {
+          // top pipe
+          ctx.fillRect(p.x, 0, PIPE_WIDTH, p.top);
+          // bottom pipe
+          const bottomY = p.top + PIPE_GAP;
+          ctx.fillRect(p.x, bottomY, PIPE_WIDTH, canvas.height - bottomY);
+        });
+
+        // Overlay messages
+        if (state === STATE.START) {
+          ctx.fillStyle = "#fff";
+          ctx.font = "24px system-ui";
+          ctx.textAlign = "center";
+          ctx.fillText("Click / Space to start", canvas.width / 2, canvas.height / 2);
+        } else if (state === STATE.GAME_OVER) {
+          ctx.fillStyle = "#fff";
+          ctx.font = "24px system-ui";
+          ctx.textAlign = "center";
+          ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2 - 20);
+          ctx.font = "16px system-ui";
+          ctx.fillText("Press R to restart", canvas.width / 2, canvas.height / 2 + 14);
+        }
+      }
+
+      // Main loop
+      function loop(ts) {
+        const dt = ts - (lastFrame || ts);
+        lastFrame = ts;
+        update(dt);
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      // ----------  Event listeners  ----------
+      document.addEventListener("keydown", (e) => {
+        if (e.code === "Space") {
+          flap();
+          e.preventDefault();
+        } else if (e.code === "KeyR") {
+          reset();
+        }
+      });
+      canvas.addEventListener("pointerdown", flap);
+
+      // ----------  Kick things off!  ----------
+      reset();
+      requestAnimationFrame(loop);
+    </script>
+  </body>
+</html>

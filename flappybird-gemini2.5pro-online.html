@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird Clone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            touch-action: manipulation; /* Prevents double-tap to zoom on mobile */
+        }
+        canvas {
+            display: block;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.5s ease;
+        }
+        #game-container {
+            width: 100%;
+            max-width: 500px;
+        }
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col justify-center items-center min-h-screen p-4">
+
+    <div id="game-container" class="relative">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui-overlay" class="absolute inset-0 flex flex-col justify-center items-center text-white text-center p-4">
+            <div id="score" class="hidden text-4xl md:text-6xl font-bold" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">0</div>
+            
+            <div id="start-screen" class="flex flex-col items-center">
+                 <h1 class="text-4xl md:text-5xl font-bold mb-2" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.5);">Flappy Bird</h1>
+                 <p class="text-lg md:text-xl mb-4">Press Space or Tap to Start</p>
+                 <button id="theme-button" class="flex items-center justify-center mt-4 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
+                     <span id="theme-button-text">✨ Suggest a Theme</span>
+                     <div id="theme-spinner" class="spinner ml-2 hidden"></div>
+                 </button>
+            </div>
+
+            <div id="game-over-screen" class="hidden flex-col items-center bg-black bg-opacity-60 p-6 rounded-lg">
+                <h2 class="text-3xl md:text-4xl font-bold mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Game Over</h2>
+                <p class="text-lg md:text-xl mb-2">Final Score: <span id="final-score">0</span></p>
+                <p id="gemini-comment" class="text-md italic h-12 flex items-center justify-center"></p>
+                <button id="restart-button" class="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
+                    Restart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreDisplay = document.getElementById('score');
+        const finalScoreDisplay = document.getElementById('final-score');
+        const startScreen = document.getElementById('start-screen');
+        const gameOverScreen = document.getElementById('game-over-screen');
+        const restartButton = document.getElementById('restart-button');
+        const gameContainer = document.getElementById('game-container');
+        const geminiCommentDisplay = document.getElementById('gemini-comment');
+        const themeButton = document.getElementById('theme-button');
+        const themeButtonText = document.getElementById('theme-button-text');
+        const themeSpinner = document.getElementById('theme-spinner');
+
+        // --- Game State ---
+        let gameState = 'start'; // 'start', 'playing', 'gameOver'
+        
+        // --- Game Configuration ---
+        const birdConfig = {
+            x: 50, y: 150, width: 34, height: 24,
+            gravity: 0.4, lift: -7, velocity: 0,
+            color: '#FFD700' // Initial Gold
+        };
+
+        const pipeConfig = {
+            width: 52, gap: 150, speed: 2, interval: 100,
+            color: '#228B22' // Initial Forest Green
+        };
+        
+        let bird;
+        let pipes = [];
+        let score = 0;
+        let frameCount = 0;
+        let animationFrameId;
+
+        // --- Gemini API ---
+        async function callGemini(prompt, isJson = false) {
+            const apiKey = ""; // Left empty for automatic injection by the environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            const payload = {
+              contents: [{ role: "user", parts: [{ text: prompt }] }],
+            };
+
+            if (isJson) {
+                payload.generationConfig = {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            birdColor: { "type": "STRING" },
+                            pipeColor: { "type": "STRING" },
+                            skyColor: { "type": "STRING" },
+                        },
+                    },
+                };
+            }
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    console.error("API Error Response:", await response.text());
+                    return null;
+                }
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                }
+                console.error("Unexpected API response structure:", result);
+                return null;
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                return null;
+            }
+        }
+
+
+        // --- Game Setup Functions ---
+        function resizeCanvas() {
+            const containerWidth = gameContainer.clientWidth;
+            canvas.width = containerWidth;
+            canvas.height = containerWidth * (9 / 16);
+            if (gameState !== 'playing') {
+                draw();
+            }
+        }
+        
+        function initializeGame() {
+            bird = { ...birdConfig };
+            pipes = [];
+            score = 0;
+            frameCount = 0;
+            scoreDisplay.textContent = '0';
+            gameOverScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            scoreDisplay.classList.add('hidden');
+            gameState = 'start';
+        }
+
+        // --- Drawing Functions ---
+        function drawBird() {
+            ctx.fillStyle = bird.color;
+            ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
+        }
+
+        function drawPipes() {
+            ctx.fillStyle = pipeConfig.color;
+            pipes.forEach(pipe => {
+                ctx.fillRect(pipe.x, 0, pipeConfig.width, pipe.topHeight);
+                ctx.fillRect(pipe.x, canvas.height - pipe.bottomHeight, pipeConfig.width, pipe.bottomHeight);
+            });
+        }
+        
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (gameState === 'playing' || gameState === 'gameOver') {
+                 drawPipes();
+                 drawBird();
+            }
+        }
+
+        // --- Game Logic Functions ---
+        function updateBird() {
+            bird.velocity += bird.gravity;
+            bird.velocity *= 0.9;
+            bird.y += bird.velocity;
+            if (bird.y + bird.height > canvas.height || bird.y < 0) {
+                endGame();
+            }
+        }
+
+        function updatePipes() {
+            if (frameCount % pipeConfig.interval === 0) {
+                const topHeight = Math.random() * (canvas.height - pipeConfig.gap - 50) + 25;
+                pipes.push({
+                    x: canvas.width,
+                    topHeight: topHeight,
+                    bottomHeight: canvas.height - topHeight - pipeConfig.gap,
+                    passed: false
+                });
+            }
+            pipes.forEach(pipe => { pipe.x -= pipeConfig.speed; });
+            pipes = pipes.filter(pipe => pipe.x + pipeConfig.width > 0);
+        }
+
+        function checkCollisions() {
+            for (let pipe of pipes) {
+                if (bird.x < pipe.x + pipeConfig.width && bird.x + bird.width > pipe.x) {
+                    if (bird.y < pipe.topHeight || bird.y + bird.height > canvas.height - pipe.bottomHeight) {
+                        endGame();
+                        return;
+                    }
+                }
+            }
+        }
+
+        function updateScore() {
+            for (let pipe of pipes) {
+                if (pipe.x + pipeConfig.width < bird.x && !pipe.passed) {
+                    score++;
+                    pipe.passed = true;
+                    scoreDisplay.textContent = score;
+                }
+            }
+        }
+        
+        function birdJump() {
+            if (gameState === 'playing') {
+                bird.velocity = birdConfig.lift;
+            }
+        }
+
+        // --- Game State Management ---
+        function startGame() {
+            if (gameState !== 'playing') {
+                initializeGame();
+                gameState = 'playing';
+                startScreen.classList.add('hidden');
+                scoreDisplay.classList.remove('hidden');
+                gameLoop();
+            }
+        }
+
+        async function endGame() {
+            if (gameState !== 'gameOver') {
+                gameState = 'gameOver';
+                cancelAnimationFrame(animationFrameId);
+                finalScoreDisplay.textContent = score;
+                gameOverScreen.classList.remove('hidden');
+                scoreDisplay.classList.add('hidden');
+                
+                // ✨ Gemini Feature: Witty comment on game over
+                geminiCommentDisplay.textContent = '✨ Thinking of a witty remark...';
+                const prompt = `A user just scored ${score} in a Flappy Bird style game. Write a short, witty, and slightly sassy one-sentence comment about their performance. Be creative.`;
+                const comment = await callGemini(prompt);
+                geminiCommentDisplay.textContent = comment || "Couldn't think of anything witty. Try again!";
+            }
+        }
+
+        function gameLoop() {
+            if (gameState !== 'playing') return;
+            updateBird();
+            updatePipes();
+            checkCollisions();
+            updateScore();
+            draw();
+            frameCount++;
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        // --- Event Listeners ---
+        function handleInput() {
+            if (gameState === 'start') {
+                startGame();
+                birdJump();
+            } else if (gameState === 'playing') {
+                birdJump();
+            }
+        }
+        
+        window.addEventListener('keydown', (e) => { if (e.code === 'Space') handleInput(); });
+        canvas.addEventListener('mousedown', handleInput);
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); handleInput(); });
+        restartButton.addEventListener('click', (e) => { e.stopPropagation(); startGame(); });
+
+        // ✨ Gemini Feature: Suggest a theme
+        themeButton.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            themeButtonText.textContent = 'Generating...';
+            themeSpinner.classList.remove('hidden');
+            themeButton.disabled = true;
+
+            const prompt = "Suggest a vibrant and visually appealing color theme for a Flappy Bird style game. I need hex codes for the bird, the pipes, and the sky background. Provide it in JSON format.";
+            const themeJson = await callGemini(prompt, true);
+
+            if (themeJson) {
+                try {
+                    const theme = JSON.parse(themeJson);
+                    birdConfig.color = theme.birdColor || '#FFD700';
+                    pipeConfig.color = theme.pipeColor || '#228B22';
+                    canvas.style.backgroundColor = theme.skyColor || '#87CEEB';
+                } catch(err) {
+                     console.error("Failed to parse theme JSON:", err);
+                     // fallback to default if parsing fails
+                     canvas.style.backgroundColor = '#87CEEB';
+                }
+            } else {
+                // fallback to default if api call fails
+                 canvas.style.backgroundColor = '#87CEEB';
+            }
+
+            themeButtonText.textContent = '✨ Suggest a Theme';
+            themeSpinner.classList.add('hidden');
+            themeButton.disabled = false;
+        });
+
+
+        window.addEventListener('resize', resizeCanvas);
+        
+        // --- Initial Setup ---
+        window.onload = () => {
+            canvas.style.backgroundColor = '#87CEEB'; // Set initial bg color
+            resizeCanvas();
+            initializeGame();
+        };
+    </script>
+</body>
+</html>
