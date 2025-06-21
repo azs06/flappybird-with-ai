@@ -13,7 +13,7 @@ Once the plan is generated, I asked the AI to generate the code for each step of
 Not all AI created a plan, some went directly into generating the code, specilized AI tools like loveable and bolt.new, straight up ignored the instruction and generated flappy bird using react. I used the following AI tools:
 
 * Augment: with the Auto mode(trial version)
-  * <https://augment.com/>
+  * <https://www.augmentcode.com/>
 * Bolt.new:
   * <https://bolt.new/>
 * ChatGPT: Model GTP-03-high
