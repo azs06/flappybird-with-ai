@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird AI Implementations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #444;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .link-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            transition: all 0.3s ease;
+        }
+        .link-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        .link-item a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .link-item a:hover {
+            color: #0056b3;
+        }
+        .link-description {
+            font-size: 0.9em;
+            color: #666;
+            margin: 0;
+        }
+        .stats {
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+        }
+        .game-icon {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎮 Flappy Bird AI Implementations</h1>
+    
+    <div class="stats">
+        <p>📁 12 Directory Implementations | 📄 4 Single File Implementations</p>
+    </div>
+
+    
+    <div class="section">
+        <h2>📁 Directory-Based Implementations</h2>
+        <div class="links">
+            
+                <div class="link-item">
+                    <a href="flappybird-augment/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-augment
+                    </a>
+                    <p class="link-description">Augment Auto mode - Most polished implementation</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-claude-code/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-claude-code
+                    </a>
+                    <p class="link-description">Claude Code (Sonnet 4) - Clean, well-structured</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-claude-vscode/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-claude-vscode
+                    </a>
+                    <p class="link-description">Claude VSCode extension - Modular architecture</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-cline/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-cline
+                    </a>
+                    <p class="link-description">Cline with xAI - Good spec-based development</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-cursor/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-cursor
+                    </a>
+                    <p class="link-description">Cursor Auto mode - Good instruction following</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-gemini-2.5-pro/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-gemini-2.5-pro
+                    </a>
+                    <p class="link-description">Gemini 2.5 Pro - Clean implementation</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-gemini-code-assistant/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-gemini-code-assistant
+                    </a>
+                    <p class="link-description">Gemini Code Assistant - VSCode extension</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-gpt-4o/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-gpt-4o
+                    </a>
+                    <p class="link-description">GPT-4o implementation - SVG-based graphics</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-kilocode/" onclick="alert('No index.html found in this directory'); return false;">
+                        <span class="game-icon">🐦</span>flappybird-kilocode
+                    </a>
+                    <p class="link-description">AI-generated Flappy Bird implementation</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-roocode/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-roocode
+                    </a>
+                    <p class="link-description">RooCode with DeepSeek R1 - Mixed results</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-trae/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-trae
+                    </a>
+                    <p class="link-description">Trae (ByteDance) - Surprisingly good quality</p>
+                </div>
+                <div class="link-item">
+                    <a href="flappybird-windsurf/index.html" >
+                        <span class="game-icon">🐦</span>flappybird-windsurf
+                    </a>
+                    <p class="link-description">Windsurf (SE-1) - Had some initial issues</p>
+                </div>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <h2>📄 Single File Implementations</h2>
+        <div class="links">
+            
+            <div class="link-item">
+                <a href="flappybird-chatgpt-online.html">
+                    <span class="game-icon">🎯</span>flappybird-chatgpt-online.html
+                </a>
+                <p class="link-description">ChatGPT web interface - GTP-03-high model</p>
+            </div>
+            <div class="link-item">
+                <a href="flappybird-claude-online.html">
+                    <span class="game-icon">🎯</span>flappybird-claude-online.html
+                </a>
+                <p class="link-description">Claude web interface - Claude 4 Opus</p>
+            </div>
+            <div class="link-item">
+                <a href="flappybird-deepseek-online.html">
+                    <span class="game-icon">🎯</span>flappybird-deepseek-online.html
+                </a>
+                <p class="link-description">DeepSeek web interface implementation</p>
+            </div>
+            <div class="link-item">
+                <a href="flappybird-gemini2.5pro-online.html">
+                    <span class="game-icon">🎯</span>flappybird-gemini2.5pro-online.html
+                </a>
+                <p class="link-description">Gemini 2.5 Pro web interface</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📋 About This Collection</h2>
+        <p>This collection contains various implementations of the Flappy Bird game created by different AI tools. Each implementation demonstrates different approaches to building the same game using HTML, CSS, and JavaScript.</p>
+        <p>The purpose is to compare the capabilities and output quality of different AI coding assistants when given the same task.</p>
+    </div>
+
+    <script>
+        // Add click tracking for analytics (optional)
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') {
+                console.log('Clicked:', e.target.href);
+            }
+        });
+    </script>
+</body>
+</html>
