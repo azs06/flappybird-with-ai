@@ -67,7 +67,7 @@ Another tools that surprised me was Trae, it is developed by ByteDance, and it i
 
 Amongst the web based tools like v0.dev, bolt.new and loveable, only v0.dev followed the instructions to develop the game in html, css and javascript, other straight up ignored the instructions and generated the game using react, which was not what I wanted. I also tried to give firebase studio a try, it also ignored the instructions and developed the game using react, and the game was not even playable, that's why I did not include it with the list. At present I can only use v0.dev relaiably, if you are not developing a react app I would avoid loveable and bolt.new.
 
-Now comes my favorite one, which is at present claude code. It is a cli based tool, with pro plan you only get sonnet 4, but it is stil very good, and if you need to research you can use the web or desktop app where you can use the opus 4 model.
+Now comes my favorite one, which is at present claude code. It is a cli based tool, with pro plan you only get sonnet 4, but it is stil very good, and if you need to research you can use the web or desktop app where you can use the opus 4 model. I wish codex cli was part of plus plan from OpenAI.
 
 ## Conclusion
 
