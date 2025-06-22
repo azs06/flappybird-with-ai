@@ -48,6 +48,8 @@ Not all AI created a plan, some went directly into generating the code, speciliz
   * <https://codeassist.google/>
 * DeepSeek Online:
   * <https://chat.deepseek.com/>
+* Repl.it:
+  * <https://repl.it/>
 
 ## Results
 
