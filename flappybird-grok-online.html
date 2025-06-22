@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flappy Bird Clone</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="400" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Bird properties
+        const bird = {
+            x: 50,
+            y: 150,
+            radius: 20,
+            velocity: 0,
+            gravity: 0.5,
+            flapStrength: -10
+        };
+
+        // Pipe properties
+        const pipes = [];
+        const pipeWidth = 50;
+        const gapHeight = 150;
+        const pipeSpeed = 2;
+        let frameCount = 0;
+        let score = 0;
+        let gameOver = false;
+
+        // Handle user input
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !gameOver) {
+                bird.velocity = bird.flapStrength;
+            }
+        });
+
+        function updateBird() {
+            bird.velocity += bird.gravity;
+            bird.y += bird.velocity;
+
+            if (bird.y < 0) {
+                bird.y = 0;
+                bird.velocity = 0;
+            }
+        }
+
+        function updatePipes() {
+            frameCount++;
+            if (frameCount % 100 === 0) {
+                const gapY = Math.random() * (canvas.height - gapHeight - 200) + 100;
+                pipes.push({
+                    x: canvas.width,
+                    gapY: gapY,
+                    passed: false
+                });
+            }
+
+            for (let i = pipes.length - 1; i >= 0; i--) {
+                pipes[i].x -= pipeSpeed;
+
+                // Update score
+                if (!pipes[i].passed && pipes[i].x + pipeWidth < bird.x) {
+                    pipes[i].passed = true;
+                    score++;
+                }
+
+                // Remove off-screen pipes
+                if (pipes[i].x + pipeWidth < 0) {
+                    pipes.splice(i, 1);
+                }
+            }
+        }
+
+        function checkCollisions() {
+            if (bird.y + bird.radius > canvas.height) {
+                gameOver = true;
+            }
+
+            for (let pipe of pipes) {
+                if (bird.x + bird.radius > pipe.x && bird.x - bird.radius < pipe.x + pipeWidth) {
+                    if (bird.y - bird.radius < pipe.gapY || bird.y + bird.radius > pipe.gapY + gapHeight) {
+                        gameOver = true;
+                    }
+                }
+            }
+        }
+
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw bird
+            ctx.beginPath();
+            ctx.arc(bird.x, bird.y, bird.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+            ctx.closePath();
+
+            // Draw pipes
+            for (let pipe of pipes) {
+                ctx.fillStyle = 'green';
+                ctx.fillRect(pipe.x, 0, pipeWidth, pipe.gapY);
+                ctx.fillRect(pipe.x, pipe.gapY + gapHeight, pipeWidth, canvas.height - pipe.gapY - gapHeight);
+            }
+
+            // Draw score
+            ctx.fillStyle = 'black';
+            ctx.font = '24px Arial';
+            ctx.fillText('Score: ' + score, 10, 30);
+
+            if (gameOver) {
+                ctx.fillStyle = 'red';
+                ctx.font = '48px Arial';
+                ctx.fillText('Game Over', canvas.width / 2 - 100, canvas.height / 2);
+            }
+        }
+
+        function gameLoop() {
+            if (!gameOver) {
+                updateBird();
+                updatePipes();
+                checkCollisions();
+                render();
+            } else {
+                render();
+            }
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+</body>
+</html>
