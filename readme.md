@@ -57,6 +57,8 @@ Not all AI created a plan, some went directly into generating the code, speciliz
 
 * Cursor: Followed the instructions and generated a plan, the game was also quite good. The game was playable and had no bugs, I used Cursor's auto mode, on trial version, considering the price I think Cursor is a great tool for developers.
 
+* Cline with XAI: Generated a spec document and then created the code based on that spec. The game was playable, it was not as polished as augment, claude or cursor, but it was still good, and considering it's free to use, I think for free you can't beat it.
+
 
 ## Final Thought
 
