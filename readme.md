@@ -49,6 +49,15 @@ Not all AI created a plan, some went directly into generating the code, speciliz
 * DeepSeek Online:
   * <https://chat.deepseek.com/>
 
+## Results
+
+* Augment: Created the most polished version of the game, with a well structured plan and code. The game even had sound effects and animations. It was my first time using Augment, and I was blown away by the quality of the output.
+
+* Bolt.new: Did not follow the instructions, generated a react version of the game, which was not what I wanted. The code was good, but it was not what I wanted.  
+
+* Cursor: Followed the instructions and generated a plan, the game was also quite good. The game was playable and had no bugs, I used Cursor's auto mode, on trial version, considering the price I think Cursor is a great tool for developers.
+
+
 ## Final Thought
 
 While it may simple to develop a flappy bird clone, it is still has few complexities. Not all AI perfomed the same, when it comes to following the instructions and creating a output that works really well, claude opus 4, Augment, and cursor were the best. Augment is on a league of it's own to be fair, the way it generated plan and created a a polished version of the game really surprised me.
