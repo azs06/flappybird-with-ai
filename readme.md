@@ -61,6 +61,8 @@ Not all AI created a plan, some went directly into generating the code, speciliz
 
 * Claude Code With Sonnet 4: Claude code has this feature of plan mode, you can use this mode to generate a plan, and tweak the plan to your liking, and then you could ask Claude to follow the plan to develop. The game was one of the best one, it did not has any sound effects, but the game was very polished, play and pause feature and the game was quite good to play. I was really impressed with the output, I was wondering what the Opus 4 could do in claude code, but I did not have access to it, so I could not test it. But I am sure it would be even better.
 
+* Claude Web With Claude 4 Opus: The game was very polished, like it literally spend time thinking how to make the game better, for the web version I did not asked to generate a plan, I just asked to develop a polished version of flappy bird and it did, when it comes to programming I think claude is ahead of everyone else, it is the best AI for programming at the moment.
+
 * Cursor: Followed the instructions and generated a plan, the game was also quite good. The game was playable and had no bugs, I used Cursor's auto mode, on trial version, considering the price I think Cursor is a great tool for developers.
 
 * Cline with XAI: Generated a spec document and then created the code based on that spec. The game was playable, it was not as polished as augment, claude or cursor, but it was still good, and considering it's free to use, I think for free you can't beat it.
