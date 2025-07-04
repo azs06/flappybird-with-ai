@@ -4,7 +4,7 @@ Flappy is a viral game from 2013. The game is very simple, but it is very addict
 
 I have tested several AI tools to generate the code for this game. This is the prompt I used:
 
-```
+```text
 Create a plan for developing a Flappy Bird clone using hmtl, css and javascript.
 ```
 
@@ -55,12 +55,15 @@ Not all AI created a plan, some went directly into generating the code, speciliz
 
 * Bolt.new: Did not follow the instructions, generated a react version of the game, which was not what I wanted. The code was good, but it was not what I wanted.  
 
+* ChatGPT Model GTP-03-high: The result was underwhelming, it did created the game, but the game was very basic, it did not have any animations or sound effects. Although the code good, I expected more from it, considering it's a highly regarded as one of the best model out there.
+
+* ChatGPT Model GTP-4o With Copilot: The result was okay, not something special, the generated game was playable, the game does not have any play or pause mechanism, no animation, code quality was good, in my initial propmt I explicitly asked for polished game, I guess this is the best it could do.
+
+* Claude Code With Sonnet 4: Claude code has this feature of plan mode, you can use this mode to generate a plan, and tweak the plan to your liking, and then you could ask Claude to follow the plan to develop. The game was one of the best one, it did not has any sound effects, but the game was very polished, play and pause feature and the game was quite good to play. I was really impressed with the output, I was wondering what the Opus 4 could do in claude code, but I did not have access to it, so I could not test it. But I am sure it would be even better.
+
 * Cursor: Followed the instructions and generated a plan, the game was also quite good. The game was playable and had no bugs, I used Cursor's auto mode, on trial version, considering the price I think Cursor is a great tool for developers.
 
 * Cline with XAI: Generated a spec document and then created the code based on that spec. The game was playable, it was not as polished as augment, claude or cursor, but it was still good, and considering it's free to use, I think for free you can't beat it.
-
-* 
-
 
 ## Final Thought
 
