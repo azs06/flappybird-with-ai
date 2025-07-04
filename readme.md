@@ -20,36 +20,34 @@ Not all AI created a plan, some went directly into generating the code, speciliz
   * <https://chatgpt.com>
 * ChatGPT: Model GTP-4o With Copilot
   * <https://github.com/features/copilot>
-* Cline: With XAI(Which is free to use for now)  
-  * <https://cline.bot/>
-* RooCode: With DeepSeek R1 0528 from openrouter
-  * <https://github.com/RooCodeInc/Roo-Code/>
-* Cursor: With the Auto mode
-  * <https://www.cursor.com/>
-* Windsurf: With SE-1 Model
-  * <https://windsurf.com/>
-* Claude Web: With Claude 4 Opus
-  * <https://claude.ai/>
 * Claude Code: With Sonnet 4
   * <https://www.anthropic.com/claude-code>
+* Claude Web: With Claude 4 Opus
+  * <https://claude.ai/>
+* Cline: With XAI(Which is free to use for now)  
+  * <https://cline.bot/>
+* Cursor: With the Auto mode
+  * <https://www.cursor.com/>
+* DeepSeek Online:
+  * <https://chat.deepseek.com/>
 * Gemini 2.5 pro web:
   * <https://gemini.google.com/app>
-* VS Code Copilot: With Gemini 2.5 Pro
-  * <https://github.com/features/copilot>
+* Loveable: With the Auto mode
+  * <https://lovable.app/>
+* Repl.it:
+  * <https://repl.it/>
+* RooCode: With DeepSeek R1 0528 from openrouter
+  * <https://github.com/RooCodeInc/Roo-Code/>
 * Trae: With Default Sonnet 3.7:
   * <https://trae.ai/>
 * V0.dev: With the Auto mode
   * <https://v0.dev/>
-* Loveable: With the Auto mode
-  * <https://lovable.app/>
-* Bolt.new: With the Auto mode
-  * <https://bolt.new/>
+* VS Code Copilot: With Gemini 2.5 Pro
+  * <https://github.com/features/copilot>
 * VS Code with Gemini Code Assist:  
   * <https://codeassist.google/>
-* DeepSeek Online:
-  * <https://chat.deepseek.com/>
-* Repl.it:
-  * <https://repl.it/>
+* Windsurf: With SE-1 Model
+  * <https://windsurf.com/>  
 
 ## Results
 
@@ -60,6 +58,8 @@ Not all AI created a plan, some went directly into generating the code, speciliz
 * Cursor: Followed the instructions and generated a plan, the game was also quite good. The game was playable and had no bugs, I used Cursor's auto mode, on trial version, considering the price I think Cursor is a great tool for developers.
 
 * Cline with XAI: Generated a spec document and then created the code based on that spec. The game was playable, it was not as polished as augment, claude or cursor, but it was still good, and considering it's free to use, I think for free you can't beat it.
+
+* 
 
 
 ## Final Thought
