@@ -116,3 +116,5 @@ If you want a general tool and some code assistance, I would recommend using the
 If you are looking for free tools, you could give cline with xAI a try, it's really good.
 
 Also, you might want to try trae, it is very cheap and even the free version is very good, sonnet 4 on the free version is a very good deal, though there are limitations on how many messages you can send per day.
+
+Check the games here: [https://soikat.dev/flappybird-with-ai/](https://soikat.dev/flappybird-with-ai/)
