@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Flappy Bird — Mini Clone</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <main class="wrap">
+      <h1 class="visually-hidden">Flappy Bird — Mini Clone</h1>
+
+      <div class="game-ui">
+        <canvas id="game" width="800" height="600"></canvas>
+        <div class="overlay" id="overlay">
+          <div class="panel" id="panel">
+            <h2 id="panel-title">Flappy Bird</h2>
+            <p id="panel-sub">Click / Tap / Space to flap</p>
+            <button id="startBtn" class="btn">Start</button>
+            <p class="small muted">High score: <span id="highscore">0</span></p>
+          </div>
+        </div>
+        <div class="hud">
+          <div class="score" id="score">0</div>
+        </div>
+      </div>
+
+      <footer class="footer">Made with ❤️ — Controls: Space / Click / Tap</footer>
+    </main>
+
+    <script src="js/game.js" type="module"></script>
+  </body>
+</html>
