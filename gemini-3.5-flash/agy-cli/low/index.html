@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberFlap // Neon Horizon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <!-- Parallax Layer 1: Stars -->
+    <canvas id="bg-stars-canvas"></canvas>
+    <!-- Parallax Layer 2: City Silhouette -->
+    <canvas id="bg-city-canvas"></canvas>
+    <!-- Main Game Canvas -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- UI Overlay Screens -->
+    <div id="ui-overlay" class="overlay-container">
+      
+      <!-- Start Menu -->
+      <div id="start-menu" class="menu-card active">
+        <h1 class="glitch-title" data-text="CYBERFLAP">CYBERFLAP</h1>
+        <p class="subtitle">NEON HORIZON // CRUISE MODE</p>
+        <button id="start-btn" class="cyber-btn">INITIALIZE SYSTEM</button>
+        <button id="show-leaderboard-btn" class="cyber-btn secondary">LEADERBOARD</button>
+        <div class="controls-guide">
+          <p>[ SPACE ] or [ CLICK / TAP ] to FLAP</p>
+          <p>[ P ] to PAUSE SYSTEM</p>
+        </div>
+      </div>
+
+      <!-- Pause Menu -->
+      <div id="pause-menu" class="menu-card hidden">
+        <h2 class="menu-title">SYSTEM PAUSED</h2>
+        <div class="pause-divider"></div>
+        <button id="resume-btn" class="cyber-btn">RESUME PROCESS</button>
+        <button id="restart-from-pause-btn" class="cyber-btn secondary">ABORT & RESTART</button>
+      </div>
+
+      <!-- Game Over Menu -->
+      <div id="game-over-menu" class="menu-card hidden">
+        <h2 class="menu-title critical">SYSTEM FAILURE</h2>
+        <div class="score-display-group">
+          <div class="score-box">
+            <span class="label">SCORE</span>
+            <span id="final-score" class="val">00</span>
+          </div>
+          <div class="score-box">
+            <span class="label">BEST</span>
+            <span id="best-score" class="val">00</span>
+          </div>
+        </div>
+
+        <!-- Name Input Form (Visible if high score) -->
+        <div id="high-score-form" class="hidden">
+          <p class="success-msg">NEW HIGH SCORE DETECTED!</p>
+          <div class="input-group">
+            <input type="text" id="player-name" placeholder="ENTER INITIALS" maxlength="8" autocomplete="off">
+            <button id="submit-score-btn" class="cyber-btn primary-action">RECORD DATA</button>
+          </div>
+        </div>
+
+        <button id="restart-btn" class="cyber-btn">REBOOT ENGINE</button>
+        <button id="show-leaderboard-over-btn" class="cyber-btn secondary">VIEW ARCHIVE</button>
+      </div>
+
+      <!-- Leaderboard Screen -->
+      <div id="leaderboard-menu" class="menu-card hidden">
+        <h2 class="menu-title">TOP PILOTS</h2>
+        <div class="leaderboard-table-container">
+          <table id="leaderboard-table">
+            <thead>
+              <tr>
+                <th style="width: 15%">RANK</th>
+                <th style="width: 55%">PILOT</th>
+                <th style="width: 30%">SCORE</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-entries">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+        <button id="back-to-menu-btn" class="cyber-btn">RETURN TO CORE</button>
+      </div>
+
+    </div>
+
+    <!-- Active Score Counter During Gameplay -->
+    <div id="game-hud" class="hud-container hidden">
+      <div class="hud-score-box">
+        <span class="hud-label">SCORE</span>
+        <span id="hud-score" class="hud-value">0</span>
+      </div>
+      <div class="hud-btn-group">
+        <button id="hud-pause-btn" aria-label="Pause button">⏸</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

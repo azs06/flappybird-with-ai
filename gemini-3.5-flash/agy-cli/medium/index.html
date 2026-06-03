@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Flap - Cyberpunk Arcade Flappy Bird</title>
+  <!-- Google Fonts for Retro Arcade Styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="arcade-cabinet">
+    <!-- Top Bezel / Header -->
+    <div class="cabinet-bezel-top">
+      <div class="bezel-marquee">
+        <span class="marquee-text-glowing">CYBER FLAP</span>
+        <div class="scanlines-bezel"></div>
+      </div>
+    </div>
+
+    <!-- Main Screen Container -->
+    <div class="screen-container">
+      <div class="crt-overlay"></div>
+      <div class="scanlines"></div>
+      
+      <!-- Game Canvas -->
+      <canvas id="gameCanvas" width="480" height="640"></canvas>
+
+      <!-- HUD (Heads Up Display) - visible during gameplay -->
+      <div id="hud" class="hud-layer hidden">
+        <div class="score-container">
+          <div class="hud-label">SCORE</div>
+          <div id="currentScore" class="hud-value">000</div>
+        </div>
+        
+        <button id="pauseBtn" class="hud-icon-btn" aria-label="Pause Game">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+        </button>
+
+        <div class="best-container">
+          <div class="hud-label">BEST</div>
+          <div id="bestScore" class="hud-value">000</div>
+        </div>
+      </div>
+
+      <!-- MAIN MENU OVERLAY -->
+      <div id="mainMenu" class="overlay">
+        <div class="menu-content text-center">
+          <h1 class="game-logo">
+            <span class="neon-purple">CYBER</span><span class="neon-cyan">FLAP</span>
+          </h1>
+          <p class="tagline">CYBERNETIC GRAVITY TRIAL v2.06</p>
+
+          <!-- Skin Selection Section -->
+          <div class="skin-selector-box">
+            <h3>SELECT CYBER-UNIT</h3>
+            <div class="skin-carousel">
+              <button id="prevSkinBtn" class="carousel-nav-btn">&lt;</button>
+              <div class="skin-display-wrapper">
+                <canvas id="skinPreviewCanvas" width="80" height="80"></canvas>
+                <div id="skinName" class="skin-name">CYBER BLUE</div>
+              </div>
+              <button id="nextSkinBtn" class="carousel-nav-btn">&gt;</button>
+            </div>
+            <div class="skin-description" id="skinDesc">Standard agility model. Stable gravity dampeners.</div>
+          </div>
+
+          <div class="menu-actions">
+            <button id="startBtn" class="arcade-btn glow-cyan">START GAME</button>
+            <button id="leaderboardBtn" class="arcade-btn glow-purple">HIGH SCORES</button>
+          </div>
+          
+          <div class="controls-hint">
+            <span>[SPACEBAR] / [CLICK] TO FLAP</span><br>
+            <span>[P] TO PAUSE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAUSE OVERLAY -->
+      <div id="pauseMenu" class="overlay hidden">
+        <div class="menu-content text-center glassmorphism">
+          <h2 class="menu-title glow-cyan-text">SYSTEM PAUSED</h2>
+          
+          <!-- Sound Settings -->
+          <div class="settings-box">
+            <div class="volume-control">
+              <label for="volumeSlider" class="settings-label">SYNTH VOLUME</label>
+              <div class="volume-slider-row">
+                <button id="muteToggleBtn" class="hud-icon-btn">
+                  <svg id="volumeIcon" viewBox="0 0 24 24" width="20" height="20">
+                    <!-- Icon populated dynamically -->
+                  </svg>
+                </button>
+                <input type="range" id="volumeSlider" min="0" max="100" value="50" class="neon-slider">
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-actions vertical">
+            <button id="resumeBtn" class="arcade-btn glow-cyan">RESUME SYSTEM</button>
+            <button id="restartBtn" class="arcade-btn glow-blue">REBOOT MATRIX</button>
+            <button id="menuBtn" class="arcade-btn glow-purple">DISCONNECT</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAME OVER OVERLAY -->
+      <div id="gameOverMenu" class="overlay hidden">
+        <div class="menu-content text-center glassmorphism">
+          <h2 class="menu-title glow-pink-text">UNIT CRASHED</h2>
+          
+          <div class="results-grid">
+            <div class="result-card">
+              <div class="result-label">FINAL SCORE</div>
+              <div id="finalScore" class="result-value glow-pink-text">0</div>
+            </div>
+            <div class="result-card">
+              <div class="result-label">MATRIX PEAK</div>
+              <div id="finalBest" class="result-value glow-cyan-text">0</div>
+            </div>
+          </div>
+
+          <!-- High Score Registration Form (Conditional) -->
+          <div id="leaderboardForm" class="leaderboard-form hidden">
+            <div class="pulse-border-box">
+              <p class="form-title glow-gold-text">NEW LEADERBOARD RECORD!</p>
+              <p class="form-subtitle">ENTER PILOT SIGNATURE (3 CHARS)</p>
+              <div class="input-row">
+                <input type="text" id="pilotInitials" maxLength="3" placeholder="AAA" autocomplete="off" class="cyber-input">
+                <button id="submitScoreBtn" class="arcade-btn-small glow-gold">REGISTER</button>
+              </div>
+              <div id="formError" class="error-msg hidden">INVALID SIGNATURE</div>
+            </div>
+          </div>
+
+          <div class="menu-actions vertical">
+            <button id="retryBtn" class="arcade-btn glow-cyan">INITIATE RESPAWN</button>
+            <button id="goMenuBtn" class="arcade-btn glow-purple">TERMINATION SCREEN</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEADERBOARD OVERLAY -->
+      <div id="leaderboardMenu" class="overlay hidden">
+        <div class="menu-content text-center glassmorphism">
+          <h2 class="menu-title glow-gold-text">CYBER DOME LEADERBOARD</h2>
+          
+          <div class="leaderboard-table-container">
+            <table class="leaderboard-table">
+              <thead>
+                <tr>
+                  <th class="col-rank">RANK</th>
+                  <th class="col-pilot">PILOT</th>
+                  <th class="col-score">CORE SCORE</th>
+                  <th class="col-date">TIMESTAMP</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboardBody">
+                <!-- High scores populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="menu-actions">
+            <button id="backToMenuBtn" class="arcade-btn glow-purple">BACK TO COMM-LINK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cabinet Base / Decorative Arcade Controls -->
+    <div class="cabinet-controls">
+      <div class="joystick-assembly">
+        <div class="joystick-base"></div>
+        <div class="joystick-shaft"></div>
+        <div class="joystick-ball red-glow"></div>
+      </div>
+      <div class="arcade-buttons">
+        <div class="button-container">
+          <div class="arcade-button cyan-btn" id="physicalJumpBtn">
+            <div class="btn-cap">FLAP</div>
+          </div>
+          <span class="btn-label">P1 JUMP</span>
+        </div>
+        <div class="button-container">
+          <div class="arcade-button purple-btn" id="physicalPauseBtn">
+            <div class="btn-cap">PAUSE</div>
+          </div>
+          <span class="btn-label">SYS PAUSE</span>
+        </div>
+      </div>
+      <div class="speaker-grille">
+        <div class="grille-slats"></div>
+        <div class="grille-slats"></div>
+        <div class="grille-slats"></div>
+        <div class="grille-slats"></div>
+        <div class="grille-slats"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
