@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cyber-Flappy Arcade | Retro Neon Flappy Bird</title>
+    <meta name="description" content="Play Cyber-Flappy Arcade, a polished neon-retro cyberpunk Flappy Bird clone built with HTML5 canvas, particle engines, and synth sound effects.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Cyber-Flappy <span>Arcade</span></h1>
+        <p>A Neon-Retro Cyberpunk Flappy Bird Experience</p>
+    </header>
+
+    <main class="app-container">
+        <!-- Left Panel: Skins & Customization -->
+        <aside class="side-panel">
+            <div class="panel-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 19.58 10.57 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+                Select Skin
+            </div>
+            
+            <div id="skins-list" class="skins-container">
+                <!-- Loaded dynamically by game.js -->
+            </div>
+
+            <div class="controls-guide">
+                <div class="panel-header" style="font-size: 1.05rem; margin-bottom: 12px; margin-top: 10px;">Controls</div>
+                <div class="control-row">
+                    <span>Flap / Jump</span>
+                    <span class="control-key">Space</span>
+                </div>
+                <div class="control-row">
+                    <span>Alternative</span>
+                    <span class="control-key">Up Arrow</span>
+                </div>
+                <div class="control-row">
+                    <span>Pause / Resume</span>
+                    <span class="control-key">P</span>
+                </div>
+                <div class="control-row">
+                    <span>Mute Audio</span>
+                    <span class="control-key">M</span>
+                </div>
+                <div class="control-row">
+                    <span>Mobile/Mouse</span>
+                    <span class="control-key">Tap/Click</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center Panel: The Game Screen -->
+        <section class="game-container" id="game-frame">
+            <!-- HUD score indicators -->
+            <div class="score-badge" id="hud-score">0</div>
+            <div class="high-score-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v3c0 5.5 4.5 10 10 10h10V7c0-1.1-.9-2-2-2zm-12 5V7h10v3c0 3.86-3.14 7-7 7H5c-1.1 0-2-.9-2-2zm12-3h1v3c0 1.2-.44 2.3-1.17 3.16C16.89 12.3 17 11.2 17 10V7z"/></svg>
+                HI: <span id="hud-high-score">0</span>
+            </div>
+
+            <!-- HUD Control Buttons -->
+            <div class="hud-buttons">
+                <button class="hud-btn" id="hud-pause" title="Pause Game (P)">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                </button>
+                <button class="hud-btn" id="hud-mute" title="Toggle Mute (M)">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 4L9.91 6.09 12 8.18V4zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Start screen Overlay -->
+            <div class="screen-overlay" id="start-screen">
+                <h2 class="overlay-title" style="color: var(--neon-cyan)">Ready Operator?</h2>
+                <p style="margin-bottom: 24px; color: rgba(255, 255, 255, 0.7); max-width: 300px;">
+                    Navigate through the high-voltage neon pylons. Tap, click, or press Spacebar to flap.
+                </p>
+                <button class="btn" id="btn-start">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    Initialize Play
+                </button>
+            </div>
+
+            <!-- Pause Screen Overlay -->
+            <div class="screen-overlay hidden" id="pause-screen">
+                <h2 class="overlay-title" style="color: var(--neon-orange)">System Paused</h2>
+                <p style="margin-bottom: 24px; color: rgba(255, 255, 255, 0.6)">Press Space or click Resume to continue</p>
+                <button class="btn" id="btn-resume">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+                    Resume Game
+                </button>
+            </div>
+
+            <!-- Game Over Screen Overlay -->
+            <div class="screen-overlay hidden" id="gameover-screen">
+                <h2 class="overlay-title" style="color: var(--neon-pink)">Connection Lost</h2>
+                <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">GRID TERMINATED</p>
+                <div style="font-size: 1.25rem; margin: 15px 0 25px 0;">
+                    Final Score: <span id="go-final-score" style="font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon-cyan); font-size: 2.2rem; display: block; margin-top: 5px;">0</span>
+                </div>
+
+                <!-- High Score Entry Form -->
+                <div id="gameover-form-container" class="leaderboard-form hidden">
+                    <div class="form-label">New High Score Record!</div>
+                    <form id="leaderboard-form" class="form-input-container">
+                        <input type="text" id="player-name" class="form-input" maxlength="4" placeholder="NAME" required autocomplete="off">
+                        <button type="submit" class="form-btn">Save</button>
+                    </form>
+                </div>
+
+                <button class="btn" id="btn-restart" style="margin-top: 15px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                    Reboot Grid
+                </button>
+            </div>
+
+            <!-- Canvas Element -->
+            <canvas id="game-canvas"></canvas>
+            
+            <!-- Arcade Screen Bezel Layer -->
+            <div class="arcade-bezel"></div>
+        </section>
+
+        <!-- Right Panel: Leaderboard & Info -->
+        <aside class="side-panel">
+            <div class="panel-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6 14H7v-2h6v2zm3-4H7v-2h9v2zm0-4H7V7h9v2z"/></svg>
+                Leaderboard
+            </div>
+            
+            <div id="leaderboard-list" class="leaderboard-list">
+                <!-- Loaded dynamically by game.js from localStorage -->
+            </div>
+
+            <div class="game-info-card" style="margin-top: 16px;">
+                <strong>Cyber-Flappy Arcade</strong> is fully self-contained using synthesized 8-bit sound waves and dynamic Canvas particles. Try different skins to unlock unique color trials and effects!
+                <div style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
+                    <span>Audio Synth:</span>
+                    <span id="btn-mute-txt" style="color: var(--neon-cyan); font-weight: bold; cursor: pointer; text-decoration: underline; font-family: 'Orbitron'; font-size: 0.8rem;">ACTIVE</span>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Script imports -->
+    <script src="sounds.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
