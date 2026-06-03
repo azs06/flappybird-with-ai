@@ -1,0 +1,1 @@
+I used Cursor's auto mode to develop this version, back then cursor used Cluade Sonnet 3.7/4 and GPT 4.1 to plan and develop, I have not used Cursor in ages, keeping this for now, might move this to archive.

@@ -1,1 +1,0 @@
-https://jumpy-bird-web-escape.lovable.app
