@@ -1,28 +1,40 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
+const exludedDir = ["archive"];
 
 function generateIndex() {
-    const currentDir = process.cwd();
-    const items = fs.readdirSync(currentDir, { withFileTypes: true });
-    
-    // Filter directories and HTML files
-    const directories = items
-        .filter(item => item.isDirectory() && !item.name.startsWith('.') && item.name !== 'node_modules')
-        .map(item => item.name)
-        .sort();
-    
-    const htmlFiles = items
-        .filter(item => item.isFile() && item.name.endsWith('.html') && item.name !== 'index.html')
-        .map(item => item.name)
-        .sort();
-    
-    // Extract URLs from markdown files
-    const markdownUrls = extractUrlsFromMarkdown(currentDir);
-    
-    // Generate HTML content
-    const html = `<!DOCTYPE html>
+  const currentDir = process.cwd();
+  const items = fs.readdirSync(currentDir, { withFileTypes: true });
+
+  // Filter directories and HTML files
+  const directories = items
+    .filter(
+      (item) =>
+        item.isDirectory() &&
+        !item.name.startsWith(".") &&
+        item.name !== "node_modules" &&
+        !exludedDir.includes(item.name),
+    )
+    .map((item) => item.name)
+    .sort();
+
+  const htmlFiles = items
+    .filter(
+      (item) =>
+        item.isFile() &&
+        item.name.endsWith(".html") &&
+        item.name !== "index.html",
+    )
+    .map((item) => item.name)
+    .sort();
+
+  // Extract URLs from markdown files
+  const markdownUrls = extractUrlsFromMarkdown(currentDir);
+
+  // Generate HTML content
+  const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -103,53 +115,75 @@ function generateIndex() {
         <p>📁 ${directories.length} Directory Implementations | 📄 ${htmlFiles.length} Single File Implementations | 🔗 ${markdownUrls.length} Online Implementations</p>
     </div>
 
-    ${directories.length > 0 ? `
+    ${
+      directories.length > 0
+        ? `
     <div class="section">
         <h2>📁 Directory-Based Implementations</h2>
         <div class="links">
-            ${directories.map(dir => {
+            ${directories
+              .map((dir) => {
                 // Check if index.html exists in the directory
-                const indexPath = path.join(currentDir, dir, 'index.html');
+                const indexPath = path.join(currentDir, dir, "index.html");
                 const hasIndex = fs.existsSync(indexPath);
-                
+
                 return `
                 <div class="link-item">
-                    <a href="${dir}/${hasIndex ? 'index.html' : ''}" ${hasIndex ? '' : 'onclick="alert(\'No index.html found in this directory\'); return false;"'}>
+                    <a href="${dir}/${hasIndex ? "index.html" : ""}" ${hasIndex ? "" : "onclick=\"alert('No index.html found in this directory'); return false;\""}>
                         <span class="game-icon">🐦</span>${dir}
                     </a>
                     <p class="link-description">${getDescription(dir)}</p>
                 </div>`;
-            }).join('')}
+              })
+              .join("")}
         </div>
-    </div>` : ''}
+    </div>`
+        : ""
+    }
 
-    ${htmlFiles.length > 0 ? `
+    ${
+      htmlFiles.length > 0
+        ? `
     <div class="section">
         <h2>📄 Single File Implementations</h2>
         <div class="links">
-            ${htmlFiles.map(file => `
+            ${htmlFiles
+              .map(
+                (file) => `
             <div class="link-item">
                 <a href="${file}">
                     <span class="game-icon">🎯</span>${file}
                 </a>
-                <p class="link-description">${getDescription(file.replace('.html', ''))}</p>
-            </div>`).join('')}
+                <p class="link-description">${getDescription(file.replace(".html", ""))}</p>
+            </div>`,
+              )
+              .join("")}
         </div>
-    </div>` : ''}
+    </div>`
+        : ""
+    }
 
-    ${markdownUrls.length > 0 ? `
+    ${
+      markdownUrls.length > 0
+        ? `
     <div class="section">
         <h2>🔗 Online Implementations</h2>
         <div class="links">
-            ${markdownUrls.map(item => `
+            ${markdownUrls
+              .map(
+                (item) => `
             <div class="link-item">
                 <a href="${item.url}" target="_blank" rel="noopener noreferrer">
                     <span class="game-icon">🌐</span>${item.name}
                 </a>
                 <p class="link-description">${getDescription(item.name)} - Live demo</p>
-            </div>`).join('')}
+            </div>`,
+              )
+              .join("")}
         </div>
-    </div>` : ''}
+    </div>`
+        : ""
+    }
 
     <div class="section">
         <h2>📋 About This Collection</h2>
@@ -168,77 +202,87 @@ function generateIndex() {
 </body>
 </html>`;
 
-    // Write the index.html file
-    fs.writeFileSync(path.join(currentDir, 'index.html'), html);
-    console.log('✅ Generated index.html successfully!');
-    console.log(`📁 Found ${directories.length} directories, ${htmlFiles.length} HTML files, and ${markdownUrls.length} online implementations`);
+  // Write the index.html file
+  fs.writeFileSync(path.join(currentDir, "index.html"), html);
+  console.log("✅ Generated index.html successfully!");
+  console.log(
+    `📁 Found ${directories.length} directories, ${htmlFiles.length} HTML files, and ${markdownUrls.length} online implementations`,
+  );
 }
 
 function extractUrlsFromMarkdown(currentDir) {
-    const markdownFiles = fs.readdirSync(currentDir)
-        .filter(file => file.endsWith('.md') && file !== 'readme.md' && file !== 'CLAUDE.md')
-        .sort();
-    
-    const urls = [];
-    
-    markdownFiles.forEach(file => {
-        try {
-            const content = fs.readFileSync(path.join(currentDir, file), 'utf8').trim();
-            
-            // Check if the entire content is just a URL
-            if (content.match(/^https?:\/\/[^\s]+$/)) {
-                const name = file.replace('.md', '').replace('flappybird-', '');
-                urls.push({
-                    name: name,
-                    url: content,
-                    filename: file
-                });
-            } else {
-                // Extract URLs from markdown content
-                const urlRegex = /https?:\/\/[^\s\)]+/g;
-                const foundUrls = content.match(urlRegex);
-                
-                if (foundUrls && foundUrls.length > 0) {
-                    const name = file.replace('.md', '').replace('flappybird-', '');
-                    // Use the first URL found
-                    urls.push({
-                        name: name,
-                        url: foundUrls[0],
-                        filename: file
-                    });
-                }
-            }
-        } catch (error) {
-            console.warn(`⚠️  Could not read ${file}: ${error.message}`);
+  const markdownFiles = fs
+    .readdirSync(currentDir)
+    .filter(
+      (file) =>
+        file.endsWith(".md") && file !== "readme.md" && file !== "CLAUDE.md",
+    )
+    .sort();
+
+  const urls = [];
+
+  markdownFiles.forEach((file) => {
+    try {
+      const content = fs
+        .readFileSync(path.join(currentDir, file), "utf8")
+        .trim();
+
+      // Check if the entire content is just a URL
+      if (content.match(/^https?:\/\/[^\s]+$/)) {
+        const name = file.replace(".md", "").replace("flappybird-", "");
+        urls.push({
+          name: name,
+          url: content,
+          filename: file,
+        });
+      } else {
+        // Extract URLs from markdown content
+        const urlRegex = /https?:\/\/[^\s\)]+/g;
+        const foundUrls = content.match(urlRegex);
+
+        if (foundUrls && foundUrls.length > 0) {
+          const name = file.replace(".md", "").replace("flappybird-", "");
+          // Use the first URL found
+          urls.push({
+            name: name,
+            url: foundUrls[0],
+            filename: file,
+          });
         }
-    });
-    
-    return urls;
+      }
+    } catch (error) {
+      console.warn(`⚠️  Could not read ${file}: ${error.message}`);
+    }
+  });
+
+  return urls;
 }
 
 function getDescription(name) {
-    const descriptions = {
-        'flappybird-augment': 'Augment Auto mode - Most polished implementation',
-        'flappybird-claude-code': 'Claude Code (Sonnet 4) - Clean, well-structured',
-        'flappybird-claude-vscode': 'Claude VSCode extension - Modular architecture',
-        'flappybird-cursor': 'Cursor Auto mode - Good instruction following',
-        'flappybird-windsurf': 'Windsurf (SE-1) - Had some initial issues',
-        'flappybird-cline': 'Cline with xAI - Good spec-based development',
-        'flappybird-gpt-4o': 'GPT-4o implementation - SVG-based graphics',
-        'flappybird-gemini-2.5-pro': 'Gemini 2.5 Pro - Clean implementation',
-        'flappybird-gemini-code-assistant': 'Gemini Code Assistant - VSCode extension',
-        'flappybird-roocode': 'RooCode with DeepSeek R1 - Mixed results',
-        'flappybird-trae': 'Trae (ByteDance) - Surprisingly good quality',
-        'flappybird-chatgpt-online': 'ChatGPT web interface - GTP-03-high model',
-        'flappybird-claude-online': 'Claude web interface - Claude 4 Opus',
-        'flappybird-deepseek-online': 'DeepSeek web interface implementation',
-        'flappybird-gemini2.5pro-online': 'Gemini 2.5 Pro web interface',
-        'v0dev': 'V0.dev - AI-powered development platform',
-        'loveable': 'Loveable - React-based development (ignored HTML requirement)',
-        'bolt.new': 'Bolt.new - Quick web app generator'
-    };
-    
-    return descriptions[name] || 'AI-generated Flappy Bird implementation';
+  const descriptions = {
+    "flappybird-augment": "Augment Auto mode - Most polished implementation",
+    "flappybird-claude-code": "Claude Code (Sonnet 4) - Clean, well-structured",
+    "flappybird-claude-vscode":
+      "Claude VSCode extension - Modular architecture",
+    "flappybird-cursor": "Cursor Auto mode - Good instruction following",
+    "flappybird-windsurf": "Windsurf (SE-1) - Had some initial issues",
+    "flappybird-cline": "Cline with xAI - Good spec-based development",
+    "flappybird-gpt-4o": "GPT-4o implementation - SVG-based graphics",
+    "flappybird-gemini-2.5-pro": "Gemini 2.5 Pro - Clean implementation",
+    "flappybird-gemini-code-assistant":
+      "Gemini Code Assistant - VSCode extension",
+    "flappybird-roocode": "RooCode with DeepSeek R1 - Mixed results",
+    "flappybird-trae": "Trae (ByteDance) - Surprisingly good quality",
+    "flappybird-chatgpt-online": "ChatGPT web interface - GTP-03-high model",
+    "flappybird-claude-online": "Claude web interface - Claude 4 Opus",
+    "flappybird-deepseek-online": "DeepSeek web interface implementation",
+    "flappybird-gemini2.5pro-online": "Gemini 2.5 Pro web interface",
+    v0dev: "V0.dev - AI-powered development platform",
+    loveable: "Loveable - React-based development (ignored HTML requirement)",
+    "bolt.new": "Bolt.new - Quick web app generator",
+  };
+
+  return descriptions[name] || "AI-generated Flappy Bird implementation";
 }
 
 // Run the script
