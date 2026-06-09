@@ -1,0 +1,108 @@
+- generic [active] [ref=e1]:
+  - heading "🎮 Flappy Bird AI Implementations" [level=1] [ref=e2]
+  - paragraph [ref=e4]: 📁 14 Directory Implementations | 📄 5 Single File Implementations | 🔗 4 Online Implementations
+  - generic [ref=e5]:
+    - heading "📁 Directory-Based Implementations" [level=2] [ref=e6]
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - link "🐦flappybird-augment" [ref=e9] [cursor=pointer]:
+          - /url: flappybird-augment/index.html
+        - paragraph [ref=e10]: Augment Auto mode - Most polished implementation
+      - generic [ref=e11]:
+        - link "🐦flappybird-claude-code" [ref=e12] [cursor=pointer]:
+          - /url: flappybird-claude-code/index.html
+        - paragraph [ref=e13]: Claude Code (Sonnet 4) - Clean, well-structured
+      - generic [ref=e14]:
+        - link "🐦flappybird-claude-vscode" [ref=e15] [cursor=pointer]:
+          - /url: flappybird-claude-vscode/index.html
+        - paragraph [ref=e16]: Claude VSCode extension - Modular architecture
+      - generic [ref=e17]:
+        - link "🐦flappybird-cline" [ref=e18] [cursor=pointer]:
+          - /url: flappybird-cline/index.html
+        - paragraph [ref=e19]: Cline with xAI - Good spec-based development
+      - generic [ref=e20]:
+        - link "🐦flappybird-codex-cli" [ref=e21] [cursor=pointer]:
+          - /url: flappybird-codex-cli/
+        - paragraph [ref=e22]: AI-generated Flappy Bird implementation
+      - generic [ref=e23]:
+        - link "🐦flappybird-cursor" [ref=e24] [cursor=pointer]:
+          - /url: flappybird-cursor/index.html
+        - paragraph [ref=e25]: Cursor Auto mode - Good instruction following
+      - generic [ref=e26]:
+        - link "🐦flappybird-gemini-2.5-pro" [ref=e27] [cursor=pointer]:
+          - /url: flappybird-gemini-2.5-pro/index.html
+        - paragraph [ref=e28]: Gemini 2.5 Pro - Clean implementation
+      - generic [ref=e29]:
+        - link "🐦flappybird-gemini-code-assistant" [ref=e30] [cursor=pointer]:
+          - /url: flappybird-gemini-code-assistant/index.html
+        - paragraph [ref=e31]: Gemini Code Assistant - VSCode extension
+      - generic [ref=e32]:
+        - link "🐦flappybird-gpt-4o" [ref=e33] [cursor=pointer]:
+          - /url: flappybird-gpt-4o/index.html
+        - paragraph [ref=e34]: GPT-4o implementation - SVG-based graphics
+      - generic [ref=e35]:
+        - link "🐦flappybird-kilocode" [ref=e36] [cursor=pointer]:
+          - /url: flappybird-kilocode/
+        - paragraph [ref=e37]: AI-generated Flappy Bird implementation
+      - generic [ref=e38]:
+        - link "🐦flappybird-roocode" [ref=e39] [cursor=pointer]:
+          - /url: flappybird-roocode/index.html
+        - paragraph [ref=e40]: RooCode with DeepSeek R1 - Mixed results
+      - generic [ref=e41]:
+        - link "🐦flappybird-trae" [ref=e42] [cursor=pointer]:
+          - /url: flappybird-trae/index.html
+        - paragraph [ref=e43]: Trae (ByteDance) - Surprisingly good quality
+      - generic [ref=e44]:
+        - link "🐦flappybird-windsurf" [ref=e45] [cursor=pointer]:
+          - /url: flappybird-windsurf/index.html
+        - paragraph [ref=e46]: Windsurf (SE-1) - Had some initial issues
+      - generic [ref=e47]:
+        - link "🐦flappybird-with-gemini-cli" [ref=e48] [cursor=pointer]:
+          - /url: flappybird-with-gemini-cli/index.html
+        - paragraph [ref=e49]: AI-generated Flappy Bird implementation
+  - generic [ref=e50]:
+    - heading "📄 Single File Implementations" [level=2] [ref=e51]
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - link "🎯flappybird-chatgpt-online.html" [ref=e54] [cursor=pointer]:
+          - /url: flappybird-chatgpt-online.html
+        - paragraph [ref=e55]: ChatGPT web interface - GTP-03-high model
+      - generic [ref=e56]:
+        - link "🎯flappybird-claude-online.html" [ref=e57] [cursor=pointer]:
+          - /url: flappybird-claude-online.html
+        - paragraph [ref=e58]: Claude web interface - Claude 4 Opus
+      - generic [ref=e59]:
+        - link "🎯flappybird-deepseek-online.html" [ref=e60] [cursor=pointer]:
+          - /url: flappybird-deepseek-online.html
+        - paragraph [ref=e61]: DeepSeek web interface implementation
+      - generic [ref=e62]:
+        - link "🎯flappybird-gemini2.5pro-online.html" [ref=e63] [cursor=pointer]:
+          - /url: flappybird-gemini2.5pro-online.html
+        - paragraph [ref=e64]: Gemini 2.5 Pro web interface
+      - generic [ref=e65]:
+        - link "🎯flappybird-grok-online.html" [ref=e66] [cursor=pointer]:
+          - /url: flappybird-grok-online.html
+        - paragraph [ref=e67]: AI-generated Flappy Bird implementation
+  - generic [ref=e68]:
+    - heading "🔗 Online Implementations" [level=2] [ref=e69]
+    - generic [ref=e70]:
+      - generic [ref=e71]:
+        - link "🌐bolt.new" [ref=e72] [cursor=pointer]:
+          - /url: https://peppy-bublanina-824a7c.netlify.app/
+        - paragraph [ref=e73]: Bolt.new - Quick web app generator - Live demo
+      - generic [ref=e74]:
+        - link "🌐loveable" [ref=e75] [cursor=pointer]:
+          - /url: https://jumpy-bird-web-escape.lovable.app
+        - paragraph [ref=e76]: Loveable - React-based development (ignored HTML requirement) - Live demo
+      - generic [ref=e77]:
+        - link "🌐replit" [ref=e78] [cursor=pointer]:
+          - /url: https://replit.com/@azs06/FlappyChallenge
+        - paragraph [ref=e79]: AI-generated Flappy Bird implementation - Live demo
+      - generic [ref=e80]:
+        - link "🌐v0dev" [ref=e81] [cursor=pointer]:
+          - /url: https://v0.dev/chat/flappybird-clone-project-s8vQyyg6rjp
+        - paragraph [ref=e82]: V0.dev - AI-powered development platform - Live demo
+  - generic [ref=e83]:
+    - heading "📋 About This Collection" [level=2] [ref=e84]
+    - paragraph [ref=e85]: This collection contains various implementations of the Flappy Bird game created by different AI tools. Each implementation demonstrates different approaches to building the same game using HTML, CSS, and JavaScript.
+    - paragraph [ref=e86]: The purpose is to compare the capabilities and output quality of different AI coding assistants when given the same task.

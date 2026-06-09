@@ -1,0 +1,63 @@
+<!-- Build time: 22m 33s -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Flappy Bird</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-wrapper">
+    <canvas id="canvas" width="480" height="640"></canvas>
+    <button id="btn-pause" class="pause-btn hidden" title="Pause (P)">&#9646;&#9646;</button>
+  </div>
+
+  <!-- Game Over modal (outside wrapper so it overlays viewport) -->
+  <div id="modal-gameover" class="modal hidden">
+    <div class="modal-panel">
+      <div class="modal-title">GAME OVER</div>
+      <div class="score-rows">
+        <div class="score-row">
+          <span class="score-label">SCORE</span>
+          <span class="score-val" id="go-score">0</span>
+        </div>
+        <div class="score-row">
+          <span class="score-label">BEST</span>
+          <span class="score-val gold" id="go-best">0</span>
+        </div>
+      </div>
+      <div class="name-entry">
+        <label for="name-input">ENTER YOUR NAME</label>
+        <input type="text" id="name-input" maxlength="12" placeholder="Player One"
+               autocomplete="off" spellcheck="false">
+      </div>
+      <button class="btn-primary" id="btn-submit">Save &amp; View Scores</button>
+    </div>
+  </div>
+
+  <!-- Leaderboard modal -->
+  <div id="modal-leaderboard" class="modal hidden">
+    <div class="modal-panel wide">
+      <div class="modal-title">LEADERBOARD</div>
+      <div class="lb-scroll">
+        <table class="lb-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="left">Name</th>
+              <th>Score</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="lb-body"></tbody>
+        </table>
+      </div>
+      <button class="btn-primary" id="btn-play-again">Play Again</button>
+    </div>
+  </div>
+
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

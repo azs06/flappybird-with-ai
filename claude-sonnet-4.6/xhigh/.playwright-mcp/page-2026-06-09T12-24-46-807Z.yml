@@ -1,0 +1,21 @@
+- generic [ref=e20]:
+  - generic [ref=e21]: LEADERBOARD
+  - table [ref=e23]:
+    - rowgroup [ref=e24]:
+      - row "# Name Score Date" [ref=e25]:
+        - columnheader "#" [ref=e26]
+        - columnheader "Name" [ref=e27]
+        - columnheader "Score" [ref=e28]
+        - columnheader "Date" [ref=e29]
+    - rowgroup [ref=e30]:
+      - row "🥇 TestPlayer 0 09/06/2026" [ref=e37]:
+        - cell "🥇" [ref=e38]
+        - cell "TestPlayer" [ref=e39]
+        - cell "0" [ref=e40]
+        - cell "09/06/2026" [ref=e41]
+      - row "🥈 p 0 09/06/2026" [ref=e42]:
+        - cell "🥈" [ref=e43]
+        - cell "p" [ref=e44]
+        - cell "0" [ref=e45]
+        - cell "09/06/2026" [ref=e46]
+  - button "Play Again" [ref=e36] [cursor=pointer]

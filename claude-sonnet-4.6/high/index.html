@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Flappy Bird</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-wrapper">
+    <canvas id="canvas"></canvas>
+
+    <!-- START SCREEN -->
+    <div id="screen-start" class="screen active">
+      <div class="logo-area">
+        <div class="logo-bird"></div>
+        <h1 class="game-title">FLAPPY BIRD</h1>
+      </div>
+      <div class="start-prompt tap-anim">TAP / SPACE to Start</div>
+      <div class="controls-hint">
+        <span>Space / Click / Tap = Flap</span>
+        <span>P / Esc = Pause</span>
+      </div>
+    </div>
+
+    <!-- HUD (score during play) -->
+    <div id="hud" class="screen hidden">
+      <div id="score-display">0</div>
+      <button id="btn-pause" title="Pause (P)">&#9646;&#9646;</button>
+    </div>
+
+    <!-- PAUSED SCREEN -->
+    <div id="screen-pause" class="screen hidden">
+      <div class="overlay-box">
+        <h2>PAUSED</h2>
+        <button class="btn-main" id="btn-resume">Resume</button>
+        <button class="btn-sub" id="btn-pause-quit">Quit</button>
+      </div>
+    </div>
+
+    <!-- GAME OVER SCREEN -->
+    <div id="screen-gameover" class="screen hidden">
+      <div class="overlay-box">
+        <h2 class="over-title">GAME OVER</h2>
+        <div class="score-row">
+          <span>Score</span><span id="go-score">0</span>
+        </div>
+        <div class="score-row">
+          <span>Best</span><span id="go-best">0</span>
+        </div>
+        <div class="name-entry" id="name-entry">
+          <label for="player-name">Enter your name:</label>
+          <input id="player-name" type="text" maxlength="12" placeholder="Player" autocomplete="off" spellcheck="false">
+          <button class="btn-main" id="btn-save">Save Score</button>
+        </div>
+        <button class="btn-main hidden" id="btn-restart">Play Again</button>
+        <button class="btn-sub" id="btn-leaderboard">Leaderboard</button>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD SCREEN -->
+    <div id="screen-leaderboard" class="screen hidden">
+      <div class="overlay-box leaderboard-box">
+        <h2>LEADERBOARD</h2>
+        <ol id="lb-list"></ol>
+        <button class="btn-main" id="btn-lb-play">Play Again</button>
+        <button class="btn-sub" id="btn-lb-back">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

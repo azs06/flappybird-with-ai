@@ -1,0 +1,256 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #08090f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+}
+
+/* ── Game wrapper & canvas ──────────────────────── */
+#game-wrapper {
+  position: relative;
+  width: 480px;
+  height: 640px;
+  flex-shrink: 0;
+  transform-origin: center center;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* ── Pause button ───────────────────────────────── */
+.pause-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  background: rgba(0,0,0,0.45);
+  border: 1.5px solid rgba(255,255,255,0.45);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.9);
+  font-size: 13px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.1s;
+  backdrop-filter: blur(4px);
+}
+.pause-btn:hover  { background: rgba(0,0,0,0.65); }
+.pause-btn:active { transform: scale(0.92); }
+
+/* ── Modals ─────────────────────────────────────── */
+.hidden { display: none !important; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  background: rgba(0,0,0,0.62);
+  backdrop-filter: blur(6px);
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-panel {
+  background: linear-gradient(160deg, #1c2e4a 0%, #0b1520 100%);
+  border: 2px solid #f5c518;
+  border-radius: 20px;
+  padding: 28px 32px 24px;
+  min-width: 290px;
+  max-width: 92vw;
+  text-align: center;
+  color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(245,197,24,0.12),
+    0 8px 48px rgba(0,0,0,0.9),
+    0 0 48px rgba(245,197,24,0.12);
+  animation: panelSlideUp 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-panel.wide { min-width: 340px; }
+
+@keyframes panelSlideUp {
+  from { transform: translateY(28px) scale(0.94); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #f5c518;
+  text-shadow: 0 0 24px rgba(245,197,24,0.55), 0 2px 0 rgba(0,0,0,0.4);
+  margin-bottom: 20px;
+}
+
+/* ── Score rows ─────────────────────────────────── */
+.score-rows { margin-bottom: 16px; }
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 14px;
+  background: rgba(255,255,255,0.055);
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+
+.score-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.45);
+}
+
+.score-val {
+  font-size: 30px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.score-val.gold { color: #f5c518; }
+
+/* ── Name entry ─────────────────────────────────── */
+.name-entry {
+  margin: 18px 0 16px;
+  text-align: left;
+}
+
+.name-entry label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+}
+
+.name-entry input {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.name-entry input:focus {
+  border-color: #f5c518;
+  background: rgba(255,255,255,0.1);
+}
+.name-entry input::placeholder { color: rgba(255,255,255,0.2); }
+
+/* ── Buttons ─────────────────────────────────────── */
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #f5c518 0%, #c99300 100%);
+  border: none;
+  border-radius: 12px;
+  color: #0f1c2e;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(245,197,24,0.45);
+  transition: transform 0.1s, box-shadow 0.15s;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(245,197,24,0.55);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(245,197,24,0.3);
+}
+
+/* ── Leaderboard ─────────────────────────────────── */
+.lb-scroll {
+  max-height: 280px;
+  overflow-y: auto;
+  margin-bottom: 18px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245,197,24,0.3) transparent;
+}
+.lb-scroll::-webkit-scrollbar { width: 4px; }
+.lb-scroll::-webkit-scrollbar-thumb { background: rgba(245,197,24,0.3); border-radius: 2px; }
+
+.lb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.lb-table th {
+  padding: 7px 5px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.35);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  background: #0b1520;
+}
+.lb-table th.left { text-align: left; }
+.lb-table td {
+  padding: 8px 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.8);
+}
+.lb-table tr:last-child td { border-bottom: none; }
+.lb-table .td-rank  { font-weight: 800; width: 28px; }
+.lb-table .td-name  { text-align: left; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-table .td-score { font-weight: 800; color: #fff; }
+.lb-table .td-date  { color: rgba(255,255,255,0.3); font-size: 10px; }
+
+.lb-table tr.rank-gold   td { color: #FFD700; }
+.lb-table tr.rank-silver td { color: #C8C8C8; }
+.lb-table tr.rank-bronze td { color: #CD7F32; }
+.lb-table tr.new-entry   td {
+  color: #f5c518;
+  animation: newEntryPulse 0.9s ease infinite alternate;
+}
+@keyframes newEntryPulse {
+  from { opacity: 0.65; }
+  to   { opacity: 1; }
+}
