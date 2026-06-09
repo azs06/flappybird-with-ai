@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Skyline Flap</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="shell" aria-label="Skyline Flap game">
+      <section class="game-panel" aria-label="Playfield">
+        <header class="topbar">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div>
+              <h1>Skyline Flap</h1>
+              <p id="statusText">Ready</p>
+            </div>
+          </div>
+          <div class="toolbar" aria-label="Game controls">
+            <button class="tool-button" id="soundButton" type="button" aria-pressed="false">
+              Sound
+            </button>
+            <button class="tool-button" id="pauseButton" type="button" disabled>
+              Pause
+            </button>
+          </div>
+        </header>
+
+        <div class="canvas-shell">
+          <canvas
+            id="gameCanvas"
+            width="432"
+            height="640"
+            aria-label="Skyline Flap playfield"
+          ></canvas>
+
+          <div class="score-badge" aria-live="polite">
+            <span class="score-label">Score</span>
+            <strong id="scoreText">0</strong>
+          </div>
+
+          <section class="overlay" id="overlay" aria-live="polite">
+            <div class="overlay-panel">
+              <p class="eyebrow" id="overlayEyebrow">Ready</p>
+              <h2 id="overlayTitle">Skyline Flap</h2>
+              <p class="overlay-copy" id="overlayCopy">Clear the gates and keep the run alive.</p>
+
+              <form class="score-form" id="scoreForm" hidden>
+                <label for="playerName">Player</label>
+                <div class="score-form-row">
+                  <input
+                    id="playerName"
+                    name="playerName"
+                    type="text"
+                    maxlength="12"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Pilot"
+                  />
+                  <button class="primary-button" type="submit">Save</button>
+                </div>
+              </form>
+
+              <div class="overlay-actions">
+                <button class="primary-button" id="primaryButton" type="button">Start Flight</button>
+                <button class="secondary-button" id="secondaryButton" type="button" hidden>
+                  Restart
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <aside class="leaderboard-panel" aria-labelledby="leaderboardTitle">
+        <div class="leaderboard-heading">
+          <div>
+            <p class="eyebrow">Top Ten</p>
+            <h2 id="leaderboardTitle">Leaderboard</h2>
+          </div>
+          <button class="text-button" id="resetScoresButton" type="button">Reset</button>
+        </div>
+        <ol class="leaderboard-list" id="leaderboardList"></ol>
+      </aside>
+    </main>
+
+    <script src="game.js" defer></script>
+  </body>
+</html>

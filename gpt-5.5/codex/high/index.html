@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Harbor Hop</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell" aria-label="Harbor Hop Flappy Bird game">
+      <section class="play-section" aria-label="Game">
+        <header class="game-header">
+          <div class="identity">
+            <span class="logo" aria-hidden="true"></span>
+            <div>
+              <h1>Harbor Hop</h1>
+              <p id="statusText">Ready for takeoff</p>
+            </div>
+          </div>
+
+          <div class="controls" aria-label="Game controls">
+            <button id="soundButton" class="icon-button" type="button" aria-pressed="false" title="Toggle sound">
+              <span aria-hidden="true">SFX</span>
+              <span class="button-text">Sound</span>
+            </button>
+            <button id="pauseButton" class="icon-button" type="button" disabled title="Pause or resume">
+              <span aria-hidden="true">||</span>
+              <span class="button-text">Pause</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="stage-wrap">
+          <canvas
+            id="gameCanvas"
+            width="420"
+            height="640"
+            aria-label="Harbor Hop play field"
+          ></canvas>
+
+          <div class="score-card" aria-live="polite">
+            <span>Score</span>
+            <strong id="scoreText">0</strong>
+          </div>
+
+          <section id="overlay" class="overlay" aria-live="polite">
+            <div class="modal">
+              <p id="overlayKicker" class="kicker">Ready</p>
+              <h2 id="overlayTitle">Harbor Hop</h2>
+              <p id="overlayBody">Tap, click, or press Space to flap through the sea stacks.</p>
+
+              <form id="nameForm" class="name-form" hidden>
+                <label for="playerName">Save this run</label>
+                <div class="name-row">
+                  <input
+                    id="playerName"
+                    name="playerName"
+                    type="text"
+                    maxlength="14"
+                    autocomplete="off"
+                    placeholder="Pilot"
+                    spellcheck="false"
+                  />
+                  <button class="primary-button" type="submit">Save</button>
+                </div>
+              </form>
+
+              <div class="action-row">
+                <button id="primaryButton" class="primary-button" type="button">Start</button>
+                <button id="restartButton" class="secondary-button" type="button" hidden>
+                  Restart
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-labelledby="leaderboardTitle">
+        <div class="panel-header">
+          <div>
+            <p class="kicker">Top Ten</p>
+            <h2 id="leaderboardTitle">Leaderboard</h2>
+          </div>
+          <button id="clearScoresButton" class="ghost-button" type="button">Clear</button>
+        </div>
+        <ol id="leaderboardList" class="leaderboard"></ol>
+      </aside>
+    </main>
+
+    <script src="game.js" defer></script>
+  </body>
+</html>

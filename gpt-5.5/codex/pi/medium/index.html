@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flappy Skies</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="game-card">
+      <div class="topbar">
+        <div>
+          <p class="eyebrow">Flappy Skies</p>
+          <h1>Guide Pip through the neon clouds</h1>
+        </div>
+        <button id="pauseBtn" class="ghost" type="button" disabled>Pause</button>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="game" width="432" height="640" aria-label="Flappy Bird game canvas"></canvas>
+        <div id="overlay" class="overlay show">
+          <div class="panel">
+            <h2 id="overlayTitle">Ready?</h2>
+            <p id="overlayText">Press Space, click, or tap to flap. Dodge the pipes and chase a high score.</p>
+            <button id="startBtn" type="button">Start Game</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <span><kbd>Space</kbd> / <kbd>Click</kbd> / <kbd>Tap</kbd> Flap</span>
+        <span><kbd>P</kbd> Pause</span>
+        <span><kbd>R</kbd> Restart</span>
+      </div>
+    </section>
+
+    <aside class="leaderboard-card">
+      <div class="leaderboard-head">
+        <div>
+          <p class="eyebrow">Local heroes</p>
+          <h2>Top 10</h2>
+        </div>
+        <button id="clearScores" class="ghost small" type="button">Clear</button>
+      </div>
+      <ol id="leaderboard" class="leaderboard"></ol>
+      <p class="hint">Scores are saved in this browser.</p>
+    </aside>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sky Chirp</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="game-card">
+      <div class="topbar">
+        <div>
+          <h1>Sky Chirp</h1>
+          <p>Space / click / tap to flap · P to pause</p>
+        </div>
+        <button id="pauseBtn" type="button" disabled>Pause</button>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="game" width="432" height="640" aria-label="Flappy Bird game"></canvas>
+        <div id="overlay" class="overlay">
+          <h2 id="overlayTitle">Sky Chirp</h2>
+          <p id="overlayText">Float through the emerald gates. How far can you fly?</p>
+          <button id="primaryBtn" type="button">Start Game</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="leaderboard">
+      <div class="board-head">
+        <h2>Top Pilots</h2>
+        <button id="resetScores" type="button" title="Clear leaderboard">Reset</button>
+      </div>
+      <ol id="scoreList"></ol>
+    </aside>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

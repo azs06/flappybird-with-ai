@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flappy Skies</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="game-card" aria-label="Flappy Skies game">
+      <div class="topbar">
+        <div>
+          <p class="eyebrow">Flappy Skies</p>
+          <h1>Thread the pipes</h1>
+        </div>
+        <div class="stats" aria-live="polite">
+          <span>Score <strong id="scoreValue">0</strong></span>
+          <span>Best <strong id="bestValue">0</strong></span>
+        </div>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="gameCanvas" width="432" height="768" aria-label="Flappy Bird game canvas"></canvas>
+        <div id="messagePanel" class="message-panel">
+          <h2 id="messageTitle">Ready?</h2>
+          <p id="messageText">Press Space, tap, or click to flap and start.</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="startButton" type="button">Start</button>
+        <button id="pauseButton" type="button" disabled>Pause</button>
+        <button id="muteButton" type="button" aria-pressed="false">Sound On</button>
+      </div>
+      <p class="help">Controls: Space / ↑ / click / tap to flap • P to pause • R to restart</p>
+    </section>
+
+    <aside class="leaderboard-card" aria-label="Leaderboard">
+      <div class="leaderboard-heading">
+        <div>
+          <p class="eyebrow">Top Ten</p>
+          <h2>Leaderboard</h2>
+        </div>
+        <button id="clearScoresButton" type="button" class="ghost">Clear</button>
+      </div>
+      <ol id="leaderboardList" class="leaderboard-list"></ol>
+    </aside>
+  </main>
+
+  <dialog id="scoreDialog" class="score-dialog">
+    <form id="scoreForm" method="dialog">
+      <p class="eyebrow">Game Over</p>
+      <h2>You scored <span id="finalScore">0</span></h2>
+      <label for="playerName">Name or initials</label>
+      <input id="playerName" name="playerName" maxlength="12" autocomplete="off" placeholder="ACE" />
+      <menu>
+        <button id="saveScoreButton" value="save">Save score</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="game.js"></script>
+</body>
+</html>

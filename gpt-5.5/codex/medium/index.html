@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flap Forge</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app" aria-label="Flap Forge game">
+      <section class="game-panel" aria-label="Game area">
+        <header class="topbar">
+          <div class="brand">
+            <span class="mark" aria-hidden="true"></span>
+            <div>
+              <h1>Flap Forge</h1>
+              <p id="stateText">Ready</p>
+            </div>
+          </div>
+
+          <div class="toolbar" aria-label="Game controls">
+            <button id="muteButton" class="tool-button" type="button" aria-pressed="false" title="Toggle sound">
+              <span aria-hidden="true">♪</span>
+              <span>Sound</span>
+            </button>
+            <button id="pauseButton" class="tool-button" type="button" disabled title="Pause or resume">
+              <span aria-hidden="true">||</span>
+              <span>Pause</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="stage">
+          <canvas id="gameCanvas" width="432" height="640" aria-label="Flappy Bird playfield"></canvas>
+          <div class="score-box" aria-live="polite">
+            <span>Score</span>
+            <strong id="scoreText">0</strong>
+          </div>
+
+          <section id="overlay" class="overlay" aria-live="polite">
+            <div class="dialog">
+              <p id="overlayLabel" class="eyebrow">Ready</p>
+              <h2 id="overlayTitle">Flap Forge</h2>
+              <p id="overlayText">Click, tap, or press Space to flap through the brass pipes.</p>
+
+              <form id="scoreForm" class="score-form" hidden>
+                <label for="playerName">Add your name</label>
+                <div class="form-row">
+                  <input
+                    id="playerName"
+                    name="playerName"
+                    type="text"
+                    maxlength="12"
+                    autocomplete="off"
+                    placeholder="Pilot"
+                    spellcheck="false"
+                  />
+                  <button class="primary" type="submit">Save</button>
+                </div>
+              </form>
+
+              <div class="actions">
+                <button id="mainButton" class="primary" type="button">Start</button>
+                <button id="newRunButton" class="secondary" type="button" hidden>New Run</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <aside class="leader-panel" aria-labelledby="leaderTitle">
+        <header class="leader-head">
+          <div>
+            <p class="eyebrow">Top Ten</p>
+            <h2 id="leaderTitle">Leaderboard</h2>
+          </div>
+          <button id="clearButton" class="text-button" type="button">Clear</button>
+        </header>
+        <ol id="leaderboard" class="leaderboard"></ol>
+      </aside>
+    </main>
+
+    <script src="game.js?v=2" defer></script>
+  </body>
+</html>

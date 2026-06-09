@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flap Lab</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="shell" aria-label="Flap Lab game">
+      <section class="game-card" aria-label="Game area">
+        <header class="topbar">
+          <div>
+            <h1>Flap Lab</h1>
+            <p id="statusText">Ready</p>
+          </div>
+          <div class="buttons">
+            <button id="soundButton" type="button" aria-pressed="false">Sound</button>
+            <button id="pauseButton" type="button" disabled>Pause</button>
+          </div>
+        </header>
+
+        <div class="stage">
+          <canvas id="gameCanvas" width="400" height="600" aria-label="Flappy Bird play field"></canvas>
+          <div class="score" aria-live="polite">
+            <span>Score</span>
+            <strong id="scoreText">0</strong>
+          </div>
+
+          <section id="overlay" class="overlay" aria-live="polite">
+            <div class="dialog">
+              <p id="overlayKicker">Ready</p>
+              <h2 id="overlayTitle">Flap Lab</h2>
+              <p id="overlayCopy">Click, tap, or press Space to flap through the pipes.</p>
+
+              <form id="scoreForm" class="score-form" hidden>
+                <label for="playerName">Name</label>
+                <div>
+                  <input id="playerName" name="playerName" maxlength="12" autocomplete="off" placeholder="Player" />
+                  <button type="submit">Save</button>
+                </div>
+              </form>
+
+              <div class="actions">
+                <button id="mainButton" type="button">Start</button>
+                <button id="restartButton" type="button" hidden>Restart</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <aside class="leaderboard-card" aria-labelledby="leaderboardTitle">
+        <header>
+          <div>
+            <p>Top Ten</p>
+            <h2 id="leaderboardTitle">Leaderboard</h2>
+          </div>
+          <button id="clearButton" type="button">Clear</button>
+        </header>
+        <ol id="leaderboard"></ol>
+      </aside>
+    </main>
+
+    <script src="game.js" defer></script>
+  </body>
+</html>
