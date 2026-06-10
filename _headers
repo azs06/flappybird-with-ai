@@ -1,0 +1,9 @@
+# Cloudflare Pages headers (root site)
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Vite output inside the 3D mini-site is content-hashed, safe to cache forever
+/3d-version/gpt-5.5-xhigh/assets/*
+  Cache-Control: public, max-age=31536000, immutable

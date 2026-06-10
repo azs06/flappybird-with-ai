@@ -16,7 +16,10 @@
   "main": "generate-index.js",
   "scripts": {
     "start": "http-server -p 4000",
-    "generate": "node generate-index.js"
+    "generate": "node generate-index.js",
+    "build": "bash build.sh",
+    "preview": "npx wrangler pages dev dist",
+    "deploy": "bash build.sh && npx wrangler pages deploy dist --project-name=flappybird-with-ai"
   },
   "dependencies": {
     "http-server": "^14.1.1"
