@@ -1,0 +1,14 @@
+{
+  "name": "flappybird-3d-hub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Combined Cloudflare Pages site: landing page + three AI-built 3D Flappy Bird games.",
+  "scripts": {
+    "build": "bash build.sh",
+    "preview": "npx wrangler pages dev dist",
+    "deploy": "bash build.sh && npx wrangler pages deploy dist --project-name=flappybird-3d"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

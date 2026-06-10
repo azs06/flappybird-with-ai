@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#87cbe7" />
+    <title>Flappy Bird 3D</title>
+  </head>
+  <body>
+    <main id="app" aria-label="Flappy Bird 3D game">
+      <div id="scene-root"></div>
+
+      <section class="hud" aria-live="polite">
+        <div class="score-chip">
+          <span class="label">Score</span>
+          <strong id="score">0</strong>
+        </div>
+        <div class="score-chip best">
+          <span class="label">Best</span>
+          <strong id="best">0</strong>
+        </div>
+      </section>
+
+      <button id="action-button" class="action-button" aria-label="Start game">
+        <span class="play-glyph" aria-hidden="true"></span>
+      </button>
+
+      <div id="state-banner" class="state-banner" aria-live="polite">Ready</div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

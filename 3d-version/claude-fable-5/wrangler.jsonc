@@ -1,0 +1,13 @@
+// Cloudflare Workers config — deploys the game as a static-assets Worker.
+// Docs: https://developers.cloudflare.com/workers/static-assets/
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "paperwing",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "directory": "./3d",
+    // The game is a single page; serve index.html for any unknown path
+    // (e.g. someone visits /play or a stale deep link).
+    "not_found_handling": "single-page-application"
+  }
+}

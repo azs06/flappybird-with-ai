@@ -1,0 +1,14 @@
+{
+  "name": "paperwing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PAPERWING — a 3D origami Flappy Bird. Static site deployed to Cloudflare.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:pages": "wrangler pages deploy 3d --project-name=paperwing"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

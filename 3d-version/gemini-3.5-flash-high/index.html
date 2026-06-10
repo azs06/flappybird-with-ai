@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Flappy 3D - Cyber Flight</title>
+  <meta name="description" content="A premium 3D Flappy Bird experience built using Three.js and procedural audio synthesis.">
+  <link rel="stylesheet" href="./style.css">
+  
+  <!-- Import map for Three.js -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Container for the WebGL Canvas -->
+  <div id="canvas-container"></div>
+
+  <!-- Loading Screen -->
+  <div id="loader" class="overlay">
+    <div class="spinner"></div>
+    <div class="loader-text">INITIALIZING QUANTUM GRID...</div>
+  </div>
+
+  <!-- Main Menu Overlay -->
+  <div id="main-menu" class="overlay hidden">
+    <div class="panel">
+      <h1>Flappy 3D</h1>
+      <div class="subtitle">Cyber Flight</div>
+      
+      <div class="instructions">
+        Fly through the neon pillars. Avoid collisions.<br><br>
+        Press <span>SPACE</span>, <span>LEFT CLICK</span>, or <span>TAP</span> to fly up.
+      </div>
+      
+      <div class="menu-actions">
+        <button id="btn-start" class="btn">Start Flight</button>
+        <div class="action-row">
+          <button id="btn-settings-open" class="btn btn-secondary" style="padding: 10px 25px; font-size: 0.9rem;">Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Panel Overlay -->
+  <div id="settings-menu" class="overlay hidden">
+    <div class="panel settings-panel">
+      <h2>Flight Config</h2>
+      
+      <div class="settings-option">
+        <label for="select-camera">Default Camera</label>
+        <select id="select-camera" class="select-custom">
+          <option value="classic">Classic 3D</option>
+          <option value="chase" selected>Chase Cam</option>
+          <option value="firstperson">First Person</option>
+        </select>
+      </div>
+      
+      <div class="settings-option">
+        <label for="select-quality">Graphics Quality</label>
+        <select id="select-quality" class="select-custom">
+          <option value="high">High (Shadows & Fog)</option>
+          <option value="medium" selected>Medium (No Shadows)</option>
+          <option value="low">Low (Mobile Optimized)</option>
+        </select>
+      </div>
+
+      <div class="settings-option">
+        <label for="select-audio">Audio Volume</label>
+        <select id="select-audio" class="select-custom">
+          <option value="1">100%</option>
+          <option value="0.5" selected>50%</option>
+          <option value="0">Muted</option>
+        </select>
+      </div>
+
+      <div class="settings-option">
+        <label for="select-theme">Grid Theme</label>
+        <select id="select-theme" class="select-custom">
+          <option value="synthwave" selected>Synthwave (Neon Pink/Blue)</option>
+          <option value="emerald">Emerald Forest (Green/Amber)</option>
+          <option value="cyberpunk">Cyberpunk (Yellow/Purple)</option>
+        </select>
+      </div>
+      
+      <button id="btn-settings-close" class="btn" style="width: 100%; margin-top: 25px;">Save & Close</button>
+    </div>
+  </div>
+
+  <!-- HUD Overlay (Visible while playing) -->
+  <div id="hud">
+    <div class="hud-panel">
+      <div>
+        <div class="score-label">Score</div>
+        <div id="score" class="score-display">0</div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 12px;">
+      <div class="camera-controls">
+        <button id="cam-classic" class="cam-btn" title="Classic 3D View">3D</button>
+        <button id="cam-chase" class="cam-btn active" title="Behind-the-bird View">CHASE</button>
+        <button id="cam-firstperson" class="cam-btn" title="First-Person View">FPV</button>
+      </div>
+      <button id="hud-audio-toggle" class="audio-hud-btn" title="Toggle Sound">🔊</button>
+    </div>
+  </div>
+
+  <!-- Game Over Screen Overlay -->
+  <div id="game-over-menu" class="overlay hidden">
+    <div class="panel game-over-panel">
+      <h1>Flight Terminated</h1>
+      <div class="subtitle" style="color: var(--primary-glow); text-shadow: 0 0 10px rgba(255, 0, 127, 0.3);">Collision Detected</div>
+      
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-title">Final Score</div>
+          <div id="final-score" class="stat-value">0</div>
+          <div id="new-highscore-badge" class="new-highscore hidden">New Record!</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-title">Best Score</div>
+          <div id="best-score" class="stat-value">0</div>
+        </div>
+      </div>
+      
+      <div class="menu-actions">
+        <button id="btn-restart" class="btn">Relaunch Flight</button>
+        <button id="btn-menu" class="btn btn-secondary">Main Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Script Entry Point -->
+  <script type="module" src="./game.js"></script>
+</body>
+</html>

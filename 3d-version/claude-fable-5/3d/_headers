@@ -1,0 +1,15 @@
+# Cloudflare static-asset headers (applies on both Workers and Pages)
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# HTML must revalidate so players always get the latest game shell
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Scripts and styles can be cached briefly; they change only on redeploy
+/js/*
+  Cache-Control: public, max-age=3600
+/style.css
+  Cache-Control: public, max-age=3600

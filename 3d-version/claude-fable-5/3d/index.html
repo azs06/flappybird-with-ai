@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PAPERWING — a 3D Flappy Bird, folded from paper</title>
+  <meta name="description" content="A 3D origami Flappy Bird built with Three.js. Fly a paper crane through washi-paper towers.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23d1422f'/%3E%3Cpath d='M6 22 L16 8 L20 16 L26 12 L22 24 Z' fill='%23f7f1e3'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <!-- ===================== HUD ===================== -->
+  <div id="hud" class="hidden">
+    <div id="score">0</div>
+    <div id="best-line">BEST <span id="best">0</span></div>
+  </div>
+
+  <div id="corner-buttons">
+    <button type="button" id="btn-pause" class="chip" title="Pause (P)" aria-label="Pause">❚❚</button>
+    <button type="button" id="btn-mute" class="chip" title="Sound (M)" aria-label="Mute">♪</button>
+  </div>
+
+  <!-- ===================== START ===================== -->
+  <div id="screen-start" class="screen">
+    <div class="paper-card">
+      <div class="hanko">紙</div>
+      <h1 class="title">PAPER<br>WING</h1>
+      <p class="subtitle">a flappy bird, folded in three dimensions</p>
+      <div class="rule"></div>
+      <p class="howto">
+        <span class="key">SPACE</span> <span class="key">CLICK</span> <span class="key">TAP</span>
+        <br>flap to stay aloft · thread the paper towers
+      </p>
+      <button type="button" id="btn-start" class="big-btn">UNFOLD &amp; FLY</button>
+      <div id="start-board" class="mini-board"></div>
+      <p class="credits">folded by Claude · Fable 5 · three.js</p>
+    </div>
+  </div>
+
+  <!-- ===================== GAME OVER ===================== -->
+  <div id="screen-over" class="screen hidden">
+    <div class="paper-card">
+      <div class="hanko hanko-red">終</div>
+      <h2 class="over-title">CREASED.</h2>
+      <div class="score-row">
+        <div class="score-box"><span class="label">SCORE</span><span id="final-score">0</span></div>
+        <div class="score-box"><span class="label">BEST</span><span id="final-best">0</span></div>
+      </div>
+      <div id="new-best-tag" class="new-best hidden">NEW BEST!</div>
+
+      <form id="name-form" class="name-form hidden">
+        <label for="initials">you made the top ten — sign the paper</label>
+        <div class="name-row">
+          <input type="text" id="initials" maxlength="3" autocomplete="off" spellcheck="false" placeholder="AAA">
+          <button type="submit" class="small-btn">STAMP</button>
+        </div>
+      </form>
+
+      <div id="leaderboard" class="board"></div>
+      <button type="button" id="btn-retry" class="big-btn">FOLD ANOTHER</button>
+      <p class="hint">press SPACE to retry</p>
+    </div>
+  </div>
+
+  <!-- ===================== PAUSE ===================== -->
+  <div id="screen-pause" class="screen hidden">
+    <div class="paper-card slim">
+      <div class="hanko">休</div>
+      <h2 class="over-title">RESTING<br>WINGS</h2>
+      <button type="button" id="btn-resume" class="big-btn">RESUME</button>
+      <p class="hint">press P to resume</p>
+    </div>
+  </div>
+
+  <div id="grain"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
