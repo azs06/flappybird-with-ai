@@ -1,0 +1,15 @@
+{
+  "name": "flappybird-3d",
+  "version": "1.0.0",
+  "description": "A 3D Flappy Bird built with three.js — no build step, no assets, runs offline.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs"
+  },
+  "keywords": ["three.js", "webgl", "game", "flappy-bird"],
+  "license": "MIT",
+  "dependencies": {
+    "three": "0.185.1"
+  }
+}

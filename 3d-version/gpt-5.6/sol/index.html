@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#73d9ff" />
+    <meta name="description" content="Skybound — a tiny, tactile 3D flying game." />
+    <title>Skybound — A 3D Flight</title>
+  </head>
+  <body>
+    <main id="app">
+      <canvas id="game" aria-label="Skybound 3D game"></canvas>
+
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Skybound home">
+          <span class="brand-mark"><i></i><i></i><i></i></span>
+          <span>SKYBOUND</span>
+        </a>
+        <div class="top-actions">
+          <button id="pauseButton" class="icon-button" aria-label="Pause game" title="Pause (P)">
+            <span class="pause-icon"></span>
+          </button>
+          <button id="soundButton" class="icon-button" aria-label="Toggle sound" title="Sound (M)">
+            <span class="sound-icon"><i></i></span>
+          </button>
+        </div>
+      </header>
+
+      <section id="hud" class="hud" aria-live="polite">
+        <div class="score-label">ALTITUDE</div>
+        <div id="score" class="score">0</div>
+        <div class="best-pill"><span>BEST</span><strong id="bestScore">0</strong></div>
+      </section>
+
+      <section id="intro" class="panel intro-panel">
+        <div class="eyebrow"><span></span> FLIGHT LOG 001</div>
+        <h1>Find your<br /><em>rhythm.</em></h1>
+        <p>Thread the sky gates. One tap is all it takes.</p>
+        <button id="startButton" class="primary-button">
+          <span>TAKE FLIGHT</span>
+          <i>SPACE</i>
+        </button>
+        <div class="controls-hint">
+          <span><kbd>SPACE</kbd> or click to lift</span>
+          <span class="dot"></span>
+          <span><kbd>P</kbd> to pause</span>
+        </div>
+      </section>
+
+      <section id="gameover" class="panel gameover-panel" hidden>
+        <div class="eyebrow danger"><span></span> FLIGHT COMPLETE</div>
+        <h2>So close.</h2>
+        <div class="result-grid">
+          <div><span>GATES</span><strong id="finalScore">0</strong></div>
+          <div><span>PERSONAL BEST</span><strong id="finalBest">0</strong></div>
+        </div>
+        <div id="newBest" class="new-best" hidden>✦ NEW FLIGHT RECORD ✦</div>
+        <button id="restartButton" class="primary-button">
+          <span>FLY AGAIN</span>
+          <i>R</i>
+        </button>
+      </section>
+
+      <section id="paused" class="paused-panel" hidden>
+        <div class="eyebrow"><span></span> HOLDING PATTERN</div>
+        <h2>Paused</h2>
+        <p>Press <kbd>P</kbd> to return to the sky.</p>
+      </section>
+
+      <footer>
+        <span>PROCEDURAL SKIES</span>
+        <span class="status"><i></i> SYSTEMS NOMINAL</span>
+      </footer>
+
+      <div id="flash" class="flash"></div>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

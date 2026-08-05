@@ -1,0 +1,336 @@
+:root {
+  --bg: #0b1020;
+  --ink: #f4efe6;
+  --muted: #a8b0c4;
+  --accent: #ff8a4c;
+  --accent-2: #ffd166;
+  --glow: #7ec8ff;
+  --card: rgba(12, 18, 36, 0.72);
+  --line: rgba(244, 239, 230, 0.12);
+  --danger: #ff5d6c;
+  --ok: #6ee7b7;
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  touch-action: none;
+  user-select: none;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.hud {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  pointer-events: none;
+}
+
+.score-wrap,
+.best-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.best-wrap {
+  align-items: flex-end;
+}
+
+.score-label,
+.best-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.score {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 8vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1;
+  text-shadow: 0 0 28px rgba(126, 200, 255, 0.35);
+}
+
+.best {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent-2);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 35%, rgba(255, 138, 76, 0.14), transparent 60%),
+    radial-gradient(ellipse 80% 70% at 50% 100%, rgba(11, 16, 32, 0.92), rgba(11, 16, 32, 0.55));
+  backdrop-filter: blur(4px);
+  animation: fade-in 0.45s ease both;
+}
+
+.menu-card {
+  width: min(420px, 100%);
+  padding: 2.25rem 2rem 1.75rem;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  text-align: center;
+  backdrop-filter: blur(18px);
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: var(--glow);
+  font-weight: 500;
+  margin-bottom: 0.85rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 10vw, 3.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff7ec 0%, #ffd166 45%, #ff8a4c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.9rem;
+}
+
+.title.sm {
+  font-size: clamp(2rem, 8vw, 2.6rem);
+  margin-bottom: 1.25rem;
+}
+
+.tagline {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+  font-weight: 300;
+  margin-bottom: 1.75rem;
+}
+
+.btn {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  padding: 0.95rem 1.6rem;
+  width: 100%;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn.primary {
+  color: #1a1208;
+  background: linear-gradient(135deg, #ffd166, #ff8a4c);
+  box-shadow: 0 10px 30px rgba(255, 138, 76, 0.35);
+  margin-bottom: 0.75rem;
+}
+
+.btn.primary:hover {
+  box-shadow: 0 14px 36px rgba(255, 138, 76, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn.ghost {
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+
+.btn.ghost:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hint {
+  margin-top: 1.1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 300;
+}
+
+kbd {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.06);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--ink);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.stat {
+  padding: 0.9rem 0.75rem;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.new-record {
+  color: var(--ok);
+  font-weight: 500;
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+  animation: pulse-glow 1.4s ease-in-out infinite;
+}
+
+.countdown-num {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 22vw, 8rem);
+  font-weight: 800;
+  background: linear-gradient(180deg, #fff, #ffd166);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 60px rgba(255, 209, 102, 0.35);
+  animation: pop 0.45s cubic-bezier(0.2, 1.4, 0.3, 1) both;
+}
+
+.flash {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  background: white;
+  opacity: 0;
+}
+
+.flash.burst {
+  animation: flash-burst 0.35s ease-out both;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes flash-burst {
+  0% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-card {
+    padding: 1.75rem 1.35rem 1.4rem;
+  }
+
+  .hud {
+    padding: 1rem 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .countdown-num,
+  .new-record,
+  .flash.burst {
+    animation: none;
+  }
+}

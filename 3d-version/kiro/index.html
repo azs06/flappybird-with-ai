@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#4ec0ca" />
+    <meta name="description" content="Flappy Three — a 3D Flappy Bird clone built with three.js" />
+    <title>Flappy Three — 3D Flappy Bird</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='17' r='10' fill='%23ffd23f'/%3E%3Ccircle cx='20' cy='14' r='3' fill='%23fff'/%3E%3Ccircle cx='21' cy='14' r='1.5' fill='%23222'/%3E%3Cpath d='M26 17l6 3-6 3z' fill='%23ff7f11'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game" aria-label="Flappy Three game view" role="img"></canvas>
+
+      <div id="flash" aria-hidden="true"></div>
+
+      <div id="ui">
+        <!-- In-game score -->
+        <div id="hud" class="hud" data-hidden>
+          <div id="score" class="score" role="status" aria-live="polite" aria-atomic="true">0</div>
+          <p id="readyHint" class="readyhint" data-hidden>Tap / Space to fly</p>
+        </div>
+
+        <!-- Title / ready screen -->
+        <section id="titleScreen" class="panel panel--title" aria-labelledby="titleHeading">
+          <h1 id="titleHeading" class="logo">
+            <span class="logo__word">FLAPPY</span>
+            <span class="logo__word logo__word--alt">THREE</span>
+          </h1>
+          <p class="tagline">A 3D take on a very stubborn bird.</p>
+          <button id="startBtn" class="btn btn--primary" type="button">Tap / Space to fly</button>
+          <p class="hint">
+            <kbd>Space</kbd> or <kbd>click</kbd> to flap · <kbd>P</kbd> pause · <kbd>M</kbd> mute
+          </p>
+        </section>
+
+        <!-- Game over screen -->
+        <section id="overScreen" class="panel panel--over" aria-labelledby="overHeading" data-hidden>
+          <h2 id="overHeading" class="over__title">Game Over</h2>
+          <div class="medal" id="medal" aria-hidden="true"><span id="medalLabel">—</span></div>
+          <dl class="stats">
+            <div class="stats__row">
+              <dt>Score</dt>
+              <dd id="finalScore">0</dd>
+            </div>
+            <div class="stats__row">
+              <dt>Best</dt>
+              <dd id="bestScore">0</dd>
+            </div>
+          </dl>
+          <p id="newBest" class="newbest" data-hidden>New best!</p>
+          <button id="retryBtn" class="btn btn--primary" type="button">Play again</button>
+          <p class="hint"><kbd>Space</kbd> / <kbd>click</kbd> to restart</p>
+        </section>
+
+        <!-- Paused overlay -->
+        <section id="pauseScreen" class="panel panel--pause" aria-labelledby="pauseHeading" data-hidden>
+          <h2 id="pauseHeading" class="over__title">Paused</h2>
+          <button id="resumeBtn" class="btn btn--primary" type="button">Resume</button>
+        </section>
+
+        <div class="toolbar">
+          <button id="muteBtn" class="btn btn--icon" type="button" aria-pressed="false" title="Mute sound (M)">
+            <svg class="icon icon--sound" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 9h3l4-4v14l-4-4H4z" />
+              <path class="icon__wave" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" />
+              <path class="icon__slash" d="M15 9l6 6M21 9l-6 6" />
+            </svg>
+            <span class="sr-only">Toggle sound</span>
+          </button>
+          <button id="pauseBtn" class="btn btn--icon" type="button" title="Pause (P)">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8 5v14M16 5v14" />
+            </svg>
+            <span class="sr-only">Pause game</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

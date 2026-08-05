@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07152d" />
+    <title>Sky Hopper — 3D Flight Game</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="game-shell">
+      <canvas id="game-canvas" aria-label="Sky Hopper 3D game"></canvas>
+      <section class="hud" aria-live="polite">
+        <div class="brand"><span class="brand-mark">✦</span> SKY HOPPER</div>
+        <div class="score-wrap"><span class="score-label">SCORE</span><strong id="score">0</strong><span class="best">BEST <b id="best-score">0</b></span></div>
+        <button id="sound-button" class="icon-button" aria-label="Toggle sound" title="Toggle sound">♫</button>
+      </section>
+      <section id="start-panel" class="panel active">
+        <div class="eyebrow">THE FLIGHT IS CALLING</div>
+        <h1>Find your<br /><em>rhythm.</em></h1>
+        <p>Thread the gates. Stay in the sky.<br />One tap is all it takes.</p>
+        <button id="start-button" class="primary-button"><span>TAKE FLIGHT</span><i>↗</i></button>
+        <div class="controls"><span><kbd>SPACE</kbd> FLAP</span><span><kbd>CLICK</kbd> FLAP</span></div>
+      </section>
+      <section id="gameover-panel" class="panel">
+        <div class="eyebrow">FLIGHT COMPLETE</div>
+        <h1>Almost<br /><em>there.</em></h1>
+        <div class="result-card"><div><span>SCORE</span><b id="final-score">0</b></div><div><span>BEST</span><b id="final-best">0</b></div></div>
+        <button id="restart-button" class="primary-button"><span>FLY AGAIN</span><i>↻</i></button>
+      </section>
+      <div id="hint" class="hint">TAP TO FLAP</div><div class="vignette"></div>
+    </main>
+    <script type="module" src="game.js"></script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<meta name="theme-color" content="#87c8f2" />
+<title>Flappy 3D</title>
+<link rel="stylesheet" href="./styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🐦</text></svg>" />
+
+<!--
+  Import map: teaches the browser how to resolve the bare specifier "three".
+  Points at the locally installed copy, so the game runs completely offline.
+  To use a CDN instead, swap the value for:
+    https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js
+-->
+<script type="importmap">
+{
+  "imports": {
+    "three": "./node_modules/three/build/three.module.js",
+    "three/addons/": "./node_modules/three/examples/jsm/"
+  }
+}
+</script>
+</head>
+
+<body>
+<div id="app">
+  <canvas id="gl"></canvas>
+
+  <!-- Score readout -->
+  <div id="score" class="dim">0</div>
+  <div id="best">BEST 0</div>
+  <button id="mute" type="button" aria-label="Mute">🔊</button>
+  <div id="toast"></div>
+  <div id="flash"></div>
+
+  <!-- Start screen -->
+  <div id="ready" class="panel visible">
+    <h1>FLAPPY <span>3D</span></h1>
+    <p class="tag">Fly the gaps. Grab the gems. Don't touch anything.</p>
+    <div class="cta">
+      <kbd>SPACE</kbd> <span class="or">/</span> <kbd>CLICK</kbd> <span class="or">/</span> <kbd>TAP</kbd>
+      <em>to flap</em>
+    </div>
+    <ul class="keys">
+      <li><kbd>P</kbd> pause</li>
+      <li><kbd>M</kbd> mute</li>
+      <li><kbd>R</kbd> restart</li>
+    </ul>
+  </div>
+
+  <!-- Pause screen -->
+  <div id="paused" class="panel">
+    <h2>PAUSED</h2>
+    <p class="tag">Press <kbd>P</kbd> or click to resume</p>
+  </div>
+
+  <!-- Game over screen -->
+  <div id="over" class="panel">
+    <div id="new-best">NEW BEST!</div>
+    <h2>DOWN YOU GO</h2>
+    <div class="scoreboard">
+      <div class="big">
+        <span class="label">SCORE</span>
+        <span id="final-score">0</span>
+      </div>
+      <div class="big">
+        <span class="label">BEST</span>
+        <span id="final-best">0</span>
+      </div>
+    </div>
+    <div class="breakdown">
+      <span><b id="final-pipes">0</b> pipes</span>
+      <span class="sep">·</span>
+      <span><b id="final-gems">0</b> gems</span>
+    </div>
+    <button id="restart" type="button">FLY AGAIN</button>
+    <p class="hint">or press <kbd>SPACE</kbd></p>
+  </div>
+
+  <!-- Shown only if WebGL fails or the context is lost -->
+  <div id="fatal" class="panel">
+    <h2>WebGL stopped</h2>
+    <p class="tag">Your browser couldn't keep the 3D context alive.</p>
+    <p class="tag" id="fatal-msg"></p>
+    <p class="hint">Reload the page to try again.</p>
+  </div>
+</div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

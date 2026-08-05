@@ -1,0 +1,137 @@
+{
+  "checks": [
+    {
+      "name": "desktop: menu visible on load",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: tap starts run",
+      "ok": true,
+      "detail": "state=playing"
+    },
+    {
+      "name": "desktop: bot progressed (score>=3)",
+      "ok": true,
+      "detail": "score=3 state=playing"
+    },
+    {
+      "name": "desktop: hud score visible",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: gameplay canvas nonblank+varied",
+      "ok": true,
+      "detail": "mean=206,143,103 std=42.6,47.6,48.5 colors=328"
+    },
+    {
+      "name": "desktop: gameover panel after death",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: retry returns to menu",
+      "ok": true,
+      "detail": "state=menu"
+    },
+    {
+      "name": "desktop: HUD within viewport",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "name": "desktop: no console/page errors",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "name": "mobile: menu visible on load",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile: tap starts run",
+      "ok": true,
+      "detail": "state=playing"
+    },
+    {
+      "name": "mobile: bot progressed (score>=3)",
+      "ok": true,
+      "detail": "score=3 state=playing"
+    },
+    {
+      "name": "mobile: hud score visible",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile: gameplay canvas nonblank+varied",
+      "ok": true,
+      "detail": "mean=210,172,126 std=46.4,42.8,57.1 colors=215"
+    },
+    {
+      "name": "mobile: gameover panel after death",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile: retry returns to menu",
+      "ok": true,
+      "detail": "state=menu"
+    },
+    {
+      "name": "mobile: HUD within viewport",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "name": "mobile: no console/page errors",
+      "ok": true,
+      "detail": "ok"
+    }
+  ],
+  "errors": [],
+  "artifacts": [
+    "/Users/soikat/code/flappybird-kimi-3/test/artifacts/desktop-1-menu.png",
+    "/Users/soikat/code/flappybird-kimi-3/test/artifacts/desktop-2-gameplay.png",
+    "/Users/soikat/code/flappybird-kimi-3/test/artifacts/desktop-3-gameover.png",
+    "/Users/soikat/code/flappybird-kimi-3/test/artifacts/mobile-1-menu.png",
+    "/Users/soikat/code/flappybird-kimi-3/test/artifacts/mobile-2-gameplay.png",
+    "/Users/soikat/code/flappybird-kimi-3/test/artifacts/mobile-3-gameover.png"
+  ],
+  "diagnostics": {
+    "desktop": {
+      "state": "playing",
+      "score": 3,
+      "best": 0,
+      "speed": 9.92,
+      "birdY": 1.33,
+      "renderer": {
+        "fps": 60,
+        "drawCalls": 48,
+        "triangles": 49186,
+        "geometries": 32,
+        "textures": 6,
+        "programs": 15,
+        "dpr": 1
+      }
+    },
+    "mobile": {
+      "state": "playing",
+      "score": 3,
+      "best": 0,
+      "speed": 9.92,
+      "birdY": 1.24,
+      "renderer": {
+        "fps": 60,
+        "drawCalls": 42,
+        "triangles": 49048,
+        "geometries": 32,
+        "textures": 6,
+        "programs": 15,
+        "dpr": 1.6
+      }
+    }
+  }
+}

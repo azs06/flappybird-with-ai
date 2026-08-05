@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#8fd3ff" />
+  <title>Flappy Sky · 3D Adventure</title>
+  <meta name="description" content="A charming low-poly 3D Flappy Bird adventure built with Three.js — flap through cartoon pipes over rolling hills." />
+  <link rel="preconnect" href="https://unpkg.com" />
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="scene-mount"></div>
+
+  <div id="vignette"></div>
+
+  <div id="loader" class="overlay">
+    <div class="loader-bird"></div>
+    <div class="loader-text">Waking up the bird…</div>
+  </div>
+
+  <section id="menu" class="overlay hidden">
+    <div class="panel">
+      <div class="title-stack">
+        <h1 class="game-title">Flappy&nbsp;Sky</h1>
+        <div class="game-subtitle">3D Adventure</div>
+      </div>
+
+      <div class="bird-emblem"></div>
+
+      <p class="instructions">
+        Tap, click, or press <kbd>Space</kbd> to flap.<br />
+        Glide through the pipes and don't kiss the ground.
+      </p>
+
+      <div class="menu-actions">
+        <button id="btn-start" class="btn btn-primary">Play</button>
+        <button id="btn-leaderboard" class="btn btn-ghost">Leaderboard</button>
+      </div>
+
+      <div class="menu-meta">
+        <button id="btn-cam" class="chip" title="Switch camera">Chase cam</button>
+        <button id="btn-sound" class="chip" title="Toggle sound">Sound on</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="leaderboard-view" class="overlay hidden">
+    <div class="panel">
+      <h2 class="panel-title">Leaderboard</h2>
+      <p class="panel-hint">Top 10 flights, saved on this device.</p>
+      <div id="leaderboard-table" class="leaderboard-table"></div>
+      <button id="btn-lb-back" class="btn btn-primary">Back</button>
+    </div>
+  </section>
+
+  <div id="hud" class="hidden">
+    <div id="score-badge">
+      <span class="score-label">Score</span>
+      <span id="score">0</span>
+    </div>
+    <div id="score-popup"></div>
+    <div class="hud-controls">
+      <button id="btn-pause" class="icon-btn" title="Pause (P)">❚❚</button>
+      <button id="btn-hud-cam" class="icon-btn" title="Switch camera">⇄</button>
+      <button id="btn-hud-sound" class="icon-btn" title="Toggle sound">♪</button>
+    </div>
+  </div>
+
+  <section id="pause" class="overlay hidden">
+    <div class="panel panel-sm">
+      <h2 class="panel-title">Paused</h2>
+      <p class="panel-hint">Take a breath.</p>
+      <div class="menu-actions">
+        <button id="btn-resume" class="btn btn-primary">Resume</button>
+        <button id="btn-quit" class="btn btn-ghost">Quit to menu</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="gameover" class="overlay hidden">
+    <div class="panel">
+      <h2 class="panel-title panel-title-danger">Oof!</h2>
+      <div class="result-grid">
+        <div class="result-box">
+          <span class="result-label">Score</span>
+          <span id="final-score" class="result-value">0</span>
+        </div>
+        <div class="result-box">
+          <span class="result-label">Best</span>
+          <span id="best-score" class="result-value">0</span>
+        </div>
+      </div>
+      <div id="new-record" class="record-badge hidden">New record!</div>
+
+      <div id="name-entry" class="name-entry hidden">
+        <label class="panel-hint" for="player-name">Enter your name or initials</label>
+        <input id="player-name" type="text" maxlength="12" placeholder="ACE" autocomplete="off" />
+        <button id="btn-save-score" class="btn btn-primary">Save score</button>
+      </div>
+
+      <div id="gameover-leaderboard" class="leaderboard-table compact hidden"></div>
+
+      <div class="menu-actions">
+        <button id="btn-retry" class="btn btn-primary">Play again</button>
+        <button id="btn-go-menu" class="btn btn-ghost">Menu</button>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

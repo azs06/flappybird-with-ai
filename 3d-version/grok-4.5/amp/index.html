@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="theme-color" content="#0a0e1a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Aether Flap — 3D Flappy Bird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Exo+2:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas"></canvas>
+
+      <div id="hud" class="hud hidden" aria-live="polite">
+        <div class="hud-top">
+          <div class="score-cluster">
+            <span class="score-label">SCORE</span>
+            <span id="score-value" class="score-value">0</span>
+          </div>
+          <div class="best-cluster">
+            <span class="best-label">BEST</span>
+            <span id="best-value" class="best-value">0</span>
+          </div>
+        </div>
+        <div id="combo-badge" class="combo-badge hidden">COMBO ×2</div>
+      </div>
+
+      <div id="title-screen" class="overlay title-screen">
+        <div class="overlay-panel">
+          <div class="logo-mark" aria-hidden="true">◆</div>
+          <h1 class="logo">AETHER FLAP</h1>
+          <p class="tagline">Ride the wind through neon pillars</p>
+          <button id="btn-start" class="btn primary" type="button">TAP TO FLY</button>
+          <div class="controls-hint">
+            <span><kbd>SPACE</kbd> / <kbd>CLICK</kbd> flap</span>
+            <span><kbd>P</kbd> pause · <kbd>M</kbd> mute</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="pause-screen" class="overlay hidden">
+        <div class="overlay-panel compact">
+          <h2>PAUSED</h2>
+          <button id="btn-resume" class="btn primary" type="button">RESUME</button>
+          <button id="btn-quit" class="btn ghost" type="button">QUIT</button>
+        </div>
+      </div>
+
+      <div id="gameover-screen" class="overlay hidden">
+        <div class="overlay-panel">
+          <h2 class="gameover-title">CRASHED</h2>
+          <div class="result-grid">
+            <div class="result-stat">
+              <span class="result-label">SCORE</span>
+              <span id="final-score" class="result-value">0</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-label">BEST</span>
+              <span id="final-best" class="result-value">0</span>
+            </div>
+          </div>
+          <p id="new-record" class="new-record hidden">★ NEW RECORD ★</p>
+          <button id="btn-retry" class="btn primary" type="button">FLY AGAIN</button>
+          <button id="btn-menu" class="btn ghost" type="button">MENU</button>
+        </div>
+      </div>
+
+      <div id="touch-flap" class="touch-flap hidden" aria-hidden="true"></div>
+
+      <div id="toast" class="toast hidden" role="status"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

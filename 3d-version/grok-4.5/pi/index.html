@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#1a2744" />
+    <title>Aether Flap — 3D Flappy Bird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas"></canvas>
+
+      <div id="ui-root">
+        <div id="hud" class="hidden">
+          <div id="score-cluster">
+            <div id="score-label">SCORE</div>
+            <div id="score-value">0</div>
+          </div>
+          <div id="best-chip">
+            <span class="chip-label">BEST</span>
+            <span id="best-value">0</span>
+          </div>
+        </div>
+
+        <div id="title-screen" class="overlay">
+          <div class="panel title-panel">
+            <div class="logo-mark" aria-hidden="true">✦</div>
+            <h1 class="game-title">AETHER FLAP</h1>
+            <p class="tagline">A 3D Flappy Bird clone</p>
+            <div class="controls-hint">
+              <kbd>SPACE</kbd> / <kbd>CLICK</kbd> / <kbd>TAP</kbd> to flap
+            </div>
+            <button id="start-btn" class="primary-btn" type="button">PLAY</button>
+            <p class="sub-hint">Pass through the glowing rings. Don't touch the towers.</p>
+          </div>
+        </div>
+
+        <div id="ready-banner" class="banner hidden">Get ready…</div>
+
+        <div id="gameover-screen" class="overlay hidden">
+          <div class="panel gameover-panel">
+            <h2 class="go-title">CRASHED</h2>
+            <div class="stat-row">
+              <div class="stat">
+                <div class="stat-label">SCORE</div>
+                <div id="final-score" class="stat-value">0</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">BEST</div>
+                <div id="final-best" class="stat-value">0</div>
+              </div>
+            </div>
+            <div id="new-best-badge" class="badge hidden">NEW BEST</div>
+            <button id="retry-btn" class="primary-btn" type="button">TRY AGAIN</button>
+            <p class="sub-hint">Press Space or tap to restart</p>
+          </div>
+        </div>
+
+        <div id="flash" aria-hidden="true"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

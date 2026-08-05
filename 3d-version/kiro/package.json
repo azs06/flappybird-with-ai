@@ -1,0 +1,21 @@
+{
+  "name": "flappy-three",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A 3D Flappy Bird clone built with three.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test \"tests/*.test.js\"",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.58.0",
+    "vite": "8.1.5"
+  }
+}

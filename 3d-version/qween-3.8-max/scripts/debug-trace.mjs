@@ -1,0 +1,31 @@
+import { chromium } from 'playwright-core';
+const URL = process.env.QA_URL ?? 'http://localhost:5173/';
+const CHROME = process.env.QA_CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const SEED = Number(process.env.QA_SEED ?? 1);
+const browser = await chromium.launch({ executablePath: CHROME });
+const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+const page = await ctx.newPage();
+await page.goto(URL, { waitUntil: 'load' });
+await page.waitForFunction(() => typeof window.__FLAPPY__ !== 'undefined');
+await page.waitForTimeout(800);
+const out = await page.evaluate(async (seed) => {
+  const api = window.__FLAPPY__;
+  api.setMuted(true);
+  api.setSeed(seed);
+  api.restart();
+  api.setAutopilot(true);
+  const samples = [];
+  const iv = setInterval(() => {
+    const s = api.debugState();
+    samples.push([Math.round(s.y * 100) / 100, Math.round(s.vy * 10) / 10, s.score, s.nextGateX === null ? null : Math.round(s.nextGateX * 10) / 10, s.nextGapCenter === null ? null : Math.round(s.nextGapCenter * 100) / 100, s.nextGapSize === null ? null : Math.round(s.nextGapSize * 100) / 100]);
+  }, 33);
+  api.start();
+  while (api.state === 'playing') await new Promise((r) => setTimeout(r, 50));
+  await new Promise((r) => setTimeout(r, 200));
+  clearInterval(iv);
+  return { samples: samples.slice(-40), finalState: api.state, finalScore: api.score };
+}, SEED);
+console.log('seed', SEED, '| y, vy, score, nextX, nextCenter, nextGap');
+for (const s of out.samples) console.log(s.join('\t'));
+console.log('final:', out.finalState, out.finalScore);
+await browser.close();

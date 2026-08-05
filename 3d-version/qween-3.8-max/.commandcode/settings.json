@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(sleep:*)",
+      "Shell(curl -sf http://127.0.0.1:4173/ -o /dev/null)",
+      "Shell(npm:*)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

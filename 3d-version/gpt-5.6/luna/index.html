@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#b8ecea" />
+    <title>Luna Flight Lab — 3D Flappy Bird</title>
+  </head>
+  <body>
+    <main class="game-shell">
+      <div class="game-canvas-wrap" id="game-wrap">
+        <canvas id="game-canvas" aria-label="3D Flappy Bird game"></canvas>
+        <div class="vignette"></div>
+      </div>
+
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark"><span></span><span></span><span></span></div>
+          <div>
+            <p class="eyebrow">LUNA</p>
+            <p class="brand-name">FLIGHT LAB</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="flight-status"><span class="status-dot"></span><span id="status-label">READY TO FLY</span></div>
+          <button class="icon-button" id="sound-button" type="button" aria-label="Toggle sound">♪</button>
+        </div>
+      </header>
+
+      <section class="hud" aria-live="polite">
+        <div class="score-card">
+          <span class="score-label">CURRENT SCORE</span>
+          <strong id="score">00</strong>
+        </div>
+        <div class="best-card">
+          <span class="score-label">BEST RUN</span>
+          <strong id="best-score">00</strong>
+        </div>
+      </section>
+
+      <section class="intro-panel" id="intro-panel">
+        <div class="panel-kicker"><span class="kicker-line"></span> A SMALL BIRD / A BIG SKY</div>
+        <h1>KEEP<br /><em>FLYING.</em></h1>
+        <p class="intro-copy">Thread the emerald gates.<br />Find your rhythm.</p>
+        <button class="primary-button" id="start-button" type="button">
+          <span>START FLIGHT</span><span class="button-arrow">↗</span>
+        </button>
+        <div class="control-hint"><span class="keycap">SPACE</span><span>or tap to flap</span></div>
+      </section>
+
+      <section class="game-over-panel hidden" id="game-over-panel">
+        <p class="panel-kicker"><span class="kicker-line"></span> FLIGHT RECORDED</p>
+        <h2>GOOD<br /><em>TRY.</em></h2>
+        <div class="result-row"><span>RUN SCORE</span><strong id="final-score">00</strong></div>
+        <button class="primary-button" id="restart-button" type="button"><span>FLY AGAIN</span><span class="button-arrow">↗</span></button>
+      </section>
+
+      <footer class="footer-bar">
+        <div><span class="footer-pulse"></span> WIND: <strong>WEST / 08</strong></div>
+        <div class="footer-tip">DODGE THE GATES <span>•</span> OWN THE SKY</div>
+        <div>ALT <strong id="altitude">1.6</strong> <span class="unit">M</span></div>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+{
+  "url": "http://localhost:4173/",
+  "consoleErrors": [],
+  "pageErrors": [],
+  "screenshots": [
+    "/Users/soikat/code/flappybird-qween-3.8-max/qa/screenshots/desktop-ready.png",
+    "/Users/soikat/code/flappybird-qween-3.8-max/qa/screenshots/desktop-playing.png",
+    "/Users/soikat/code/flappybird-qween-3.8-max/qa/screenshots/desktop-playing-late.png",
+    "/Users/soikat/code/flappybird-qween-3.8-max/qa/screenshots/desktop-gameover.png",
+    "/Users/soikat/code/flappybird-qween-3.8-max/qa/screenshots/mobile-ready.png",
+    "/Users/soikat/code/flappybird-qween-3.8-max/qa/screenshots/mobile-playing.png",
+    "/Users/soikat/code/flappybird-qween-3.8-max/qa/screenshots/mobile-gameover.png"
+  ],
+  "checks": {
+    "desktop: boots into ready state": {
+      "ok": true,
+      "detail": "state=ready"
+    },
+    "desktop ready: canvas nonblank": {
+      "ok": true,
+      "detail": "{\"unique\":75,\"avgLuma\":132,\"nonBlackPct\":100}"
+    },
+    "desktop: input starts play and scores progress": {
+      "ok": true,
+      "detail": "state=playing score=1"
+    },
+    "desktop playing: canvas nonblank and varied": {
+      "ok": true,
+      "detail": "{\"unique\":78,\"avgLuma\":112,\"nonBlackPct\":98}"
+    },
+    "bot playtest: survives and progresses": {
+      "ok": true,
+      "detail": "state=playing score=50 after 45s"
+    },
+    "renderer budget: draw calls": {
+      "ok": true,
+      "detail": "calls=87 tris=10212"
+    },
+    "renderer budget: fps": {
+      "ok": true,
+      "detail": "fps=60"
+    },
+    "fail path: reaches gameover": {
+      "ok": true,
+      "detail": ""
+    },
+    "gameover panel shows score and best": {
+      "ok": true,
+      "detail": "GAME OVER | PLATINUM | SCORE | 50 | BEST | 50 | NEW BEST! PLAY AGAIN |  | or tap anywhere · R to restart"
+    },
+    "restart: returns to ready": {
+      "ok": true,
+      "detail": "state=ready"
+    },
+    "restart: plays again": {
+      "ok": true,
+      "detail": "state=playing"
+    },
+    "mobile: touch context plays": {
+      "ok": true,
+      "detail": "state=playing score=3"
+    },
+    "mobile: restart button target >= 40px": {
+      "ok": true,
+      "detail": "186x51"
+    },
+    "no console errors": {
+      "ok": true,
+      "detail": ""
+    },
+    "no page errors": {
+      "ok": true,
+      "detail": ""
+    }
+  },
+  "metrics": {
+    "bot": {
+      "state": "playing",
+      "score": 50,
+      "seconds": 45
+    },
+    "renderer": {
+      "calls": 87,
+      "triangles": 10212,
+      "geometries": 89,
+      "textures": 7,
+      "fps": 60,
+      "pixelRatio": 1
+    },
+    "mobileRenderer": {
+      "calls": 67,
+      "triangles": 9712,
+      "geometries": 55,
+      "textures": 7,
+      "fps": 60,
+      "pixelRatio": 1.75
+    }
+  }
+}

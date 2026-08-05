@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0b1020" />
+    <title>Aether Flap — 3D Flappy Bird</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230b1020'/%3E%3Cpath d='M8 18c4-8 12-8 16 0-4 3-12 3-16 0z' fill='%23ff9f43'/%3E%3Ccircle cx='22' cy='14' r='2' fill='%231a1a24'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas"></canvas>
+
+      <div id="hud" class="hud hidden">
+        <div class="score-wrap">
+          <span class="score-label">SCORE</span>
+          <span id="score" class="score">0</span>
+        </div>
+        <div class="best-wrap">
+          <span class="best-label">BEST</span>
+          <span id="best" class="best">0</span>
+        </div>
+      </div>
+
+      <div id="menu" class="overlay">
+        <div class="menu-card">
+          <p class="eyebrow">THREE.JS SHOWCASE</p>
+          <h1 class="title">Aether Flap</h1>
+          <p class="tagline">A 3D reimagining of the classic — soar through floating ruins at golden hour.</p>
+          <button id="start-btn" class="btn primary" type="button">Take Flight</button>
+          <p class="hint">
+            <kbd>Space</kbd> / <kbd>Click</kbd> / <kbd>Tap</kbd> to flap
+          </p>
+        </div>
+      </div>
+
+      <div id="countdown" class="overlay hidden">
+        <div id="countdown-num" class="countdown-num">3</div>
+      </div>
+
+      <div id="gameover" class="overlay hidden">
+        <div class="menu-card gameover-card">
+          <p class="eyebrow">FLIGHT ENDED</p>
+          <h2 class="title sm">Crashed</h2>
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-label">Score</span>
+              <span id="final-score" class="stat-value">0</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Best</span>
+              <span id="final-best" class="stat-value">0</span>
+            </div>
+          </div>
+          <p id="new-record" class="new-record hidden">✦ New personal best</p>
+          <button id="retry-btn" class="btn primary" type="button">Fly Again</button>
+          <button id="menu-btn" class="btn ghost" type="button">Main Menu</button>
+        </div>
+      </div>
+
+      <div id="flash" class="flash"></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

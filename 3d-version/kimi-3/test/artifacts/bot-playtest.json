@@ -1,0 +1,31 @@
+{
+  "runs": [
+    {
+      "seed": 7,
+      "survived": true,
+      "aliveSeconds": 60,
+      "score": 32,
+      "finalSpeed": 14.75,
+      "softlock": false
+    },
+    {
+      "seed": 42,
+      "survived": true,
+      "aliveSeconds": 60,
+      "score": 32,
+      "finalSpeed": 14.75,
+      "softlock": false
+    },
+    {
+      "seed": 1999,
+      "survived": true,
+      "aliveSeconds": 60,
+      "score": 32,
+      "finalSpeed": 14.75,
+      "softlock": false
+    }
+  ],
+  "minScore": 32,
+  "avgScore": 32,
+  "anySoftlock": false
+}

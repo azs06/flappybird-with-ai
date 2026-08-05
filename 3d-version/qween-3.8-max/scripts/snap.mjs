@@ -1,0 +1,22 @@
+import { chromium } from 'playwright-core';
+const URL = process.env.QA_URL ?? 'http://localhost:5173/';
+const CHROME = process.env.QA_CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const browser = await chromium.launch({ executablePath: CHROME });
+const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+const page = await ctx.newPage();
+page.on('pageerror', (e) => console.log('PAGEERROR:', String(e)));
+await page.goto(URL, { waitUntil: 'load' });
+await page.waitForFunction(() => typeof window.__FLAPPY__ !== 'undefined');
+await page.waitForTimeout(900);
+await page.screenshot({ path: 'qa/snap-ready.png' });
+await page.evaluate(() => {
+  window.__FLAPPY__.setMuted(true);
+  window.__FLAPPY__.setAutopilot(true);
+  window.__FLAPPY__.start();
+});
+await page.waitForTimeout(3200);
+await page.screenshot({ path: 'qa/snap-play.png' });
+await page.waitForTimeout(6000);
+await page.screenshot({ path: 'qa/snap-play2.png' });
+await browser.close();
+console.log('snaps done');

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#1b2a4a" />
+  <meta name="description" content="Flappy 3D — Canyon Run. A one-button golden-hour flight through a jade canyon. Built with Three.js." />
+  <title>Flappy 3D — Canyon Run</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%A4%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="gl" aria-label="Flappy 3D game canvas"></canvas>
+    <div id="vignette" aria-hidden="true"></div>
+
+    <!-- HUD -->
+    <div id="hud" class="hidden" aria-live="polite">
+      <div id="score-wrap">
+        <div id="score">0</div>
+        <div id="best-ghost">BEST 0</div>
+      </div>
+      <div id="milestone"></div>
+      <button id="mute-btn" class="icon-btn" aria-label="Toggle sound">
+        <svg id="icon-sound-on" viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
+        <svg id="icon-sound-off" viewBox="0 0 24 24" width="22" height="22" class="hidden"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.5-2.5-1.4-1.4-2.5 2.5-2.5-2.5-1.4 1.4L13.8 12l-2.5 2.5 1.4 1.4 2.5-2.5 2.5 2.5 1.4-1.4L16.6 12z"/></svg>
+      </button>
+    </div>
+
+    <!-- MENU -->
+    <section id="screen-menu" class="screen">
+      <div class="menu-stack">
+        <h1 class="title" aria-label="Flappy 3D">
+          <span class="title-word title-flappy">FLAPPY</span>
+          <span class="title-word title-3d">3D</span>
+        </h1>
+        <p class="tagline">A tiny bird. A big canyon. One button.</p>
+        <div class="menu-best badge-pill"><span class="badge-label">BEST</span><span id="menu-best-score">0</span><span id="menu-best-medal" class="medal medal-none"></span></div>
+        <div class="hint-cluster">
+          <div class="hint-chip"><kbd>SPACE</kbd></div>
+          <div class="hint-chip">CLICK</div>
+          <div class="hint-chip">TAP</div>
+        </div>
+        <p class="hint-action">flap to start</p>
+      </div>
+    </section>
+
+    <!-- GAME OVER -->
+    <section id="screen-gameover" class="screen hidden">
+      <div class="panel">
+        <h2 class="panel-title">WIPEOUT</h2>
+        <div id="new-best-ribbon" class="ribbon hidden">NEW BEST!</div>
+        <div class="medal-showcase">
+          <div id="earned-medal" class="medal medal-big medal-none"></div>
+          <div id="medal-name" class="medal-name">NO MEDAL</div>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><div class="stat-label">SCORE</div><div id="final-score" class="stat-value">0</div></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><div class="stat-label">BEST</div><div id="final-best" class="stat-value">0</div></div>
+        </div>
+        <div class="next-medal-hint" id="next-medal-hint"></div>
+        <button id="retry-btn" class="cta">FLY AGAIN</button>
+        <p class="hint-action dim">or tap anywhere</p>
+      </div>
+    </section>
+
+    <!-- PAUSED -->
+    <section id="screen-paused" class="screen hidden">
+      <div class="panel panel-slim">
+        <h2 class="panel-title">PAUSED</h2>
+        <p class="hint-action">tap to resume</p>
+      </div>
+    </section>
+
+    <!-- LOADING -->
+    <section id="screen-loading" class="screen">
+      <div class="loader-bird">🐤</div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </section>
+
+    <div id="debug-hud" class="hidden"></div>
+  </div>
+  <noscript><div class="noscript">Flappy 3D needs JavaScript and WebGL.</div></noscript>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

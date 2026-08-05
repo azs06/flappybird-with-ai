@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #172d3a;
+  background: #b9edeb;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+}
+
+* { box-sizing: border-box; }
+
+body { margin: 0; min-width: 320px; overflow: hidden; }
+
+button { font: inherit; }
+
+.game-shell { position: relative; width: 100vw; height: 100vh; min-height: 560px; overflow: hidden; background: #b9edeb; }
+.game-canvas-wrap, #game-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+#game-canvas { display: block; cursor: pointer; }
+.vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 48%, transparent 36%, rgba(27, 73, 84, .08) 100%); }
+
+.topbar, .hud, .footer-bar, .intro-panel, .game-over-panel { position: absolute; z-index: 3; }
+.topbar { top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 28px 42px; }
+.brand-lockup, .topbar-right, .flight-status, .footer-bar, .control-hint, .primary-button, .result-row { display: flex; align-items: center; }
+.brand-lockup { gap: 13px; }
+.brand-mark { display: flex; align-items: end; gap: 3px; width: 22px; height: 23px; }
+.brand-mark span { display: block; width: 5px; border-radius: 5px; background: #e96b4e; transform: skew(-12deg); }
+.brand-mark span:nth-child(1) { height: 11px; }.brand-mark span:nth-child(2) { height: 18px; }.brand-mark span:nth-child(3) { height: 23px; }
+.eyebrow, .brand-name { margin: 0; line-height: 1; }
+.eyebrow { color: #e96b4e; font: 500 10px/1 'DM Mono', monospace; letter-spacing: .18em; }
+.brand-name { margin-top: 5px; color: #193742; font-size: 12px; font-weight: 700; letter-spacing: .2em; }
+.topbar-right { gap: 25px; }
+.flight-status, .score-label, .footer-bar, .control-hint, .panel-kicker { font-family: 'DM Mono', monospace; letter-spacing: .1em; }
+.flight-status { gap: 9px; color: rgba(25, 55, 66, .7); font-size: 9px; font-weight: 500; }
+.status-dot, .footer-pulse { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #e96b4e; box-shadow: 0 0 0 4px rgba(233, 107, 78, .13); }
+.icon-button { width: 35px; height: 35px; color: #193742; background: rgba(255,255,255,.24); border: 1px solid rgba(25,55,66,.18); border-radius: 50%; cursor: pointer; transition: .2s ease; }
+.icon-button:hover { background: rgba(255,255,255,.5); transform: translateY(-2px); }
+.icon-button.is-muted { opacity: .45; }
+
+.hud { top: 142px; left: 42px; display: flex; gap: 34px; }
+.score-card, .best-card { display: flex; flex-direction: column; gap: 5px; }
+.score-label { color: rgba(25,55,66,.56); font-size: 8px; font-weight: 500; }
+.score-card strong, .best-card strong { color: #193742; font-size: 34px; font-weight: 500; letter-spacing: -.08em; line-height: 1; }
+.best-card { padding-left: 34px; border-left: 1px solid rgba(25,55,66,.19); }
+
+.intro-panel, .game-over-panel { top: 50%; left: 12%; transform: translateY(-43%); }
+.panel-kicker { display: flex; align-items: center; gap: 10px; color: #e96b4e; font-size: 9px; font-weight: 500; }
+.kicker-line { display: inline-block; width: 28px; height: 1px; background: #e96b4e; }
+h1, h2 { margin: 15px 0 13px; color: #193742; font-size: clamp(64px, 8.5vw, 126px); font-weight: 600; letter-spacing: -.085em; line-height: .77; }
+h1 em, h2 em { color: #e96b4e; font-style: normal; }
+.intro-copy { margin: 0 0 28px 5px; color: rgba(25,55,66,.7); font-size: 15px; line-height: 1.5; }
+.primary-button { justify-content: space-between; gap: 36px; min-width: 192px; padding: 15px 15px 15px 20px; color: #f8f4e9; background: #193742; border: 0; border-radius: 3px; box-shadow: 0 10px 22px rgba(25,55,66,.15); cursor: pointer; font: 500 11px/1 'DM Mono', monospace; letter-spacing: .08em; transition: .25s ease; }
+.primary-button:hover { background: #e96b4e; transform: translateY(-3px); box-shadow: 0 14px 28px rgba(233,107,78,.23); }
+.button-arrow { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 400; line-height: 10px; }
+.control-hint { gap: 9px; margin-top: 16px; color: rgba(25,55,66,.52); font-size: 8px; }
+.keycap { padding: 5px 7px; color: #193742; border: 1px solid rgba(25,55,66,.25); border-radius: 2px; font-size: 8px; }
+.game-over-panel { width: 220px; }
+.game-over-panel h2 { font-size: clamp(60px, 7vw, 96px); }
+.result-row { justify-content: space-between; margin: 20px 0; padding: 13px 0; border-top: 1px solid rgba(25,55,66,.2); border-bottom: 1px solid rgba(25,55,66,.2); color: rgba(25,55,66,.55); font: 9px/1 'DM Mono', monospace; letter-spacing: .12em; }
+.result-row strong { color: #193742; font: 500 26px/1 'Space Grotesk', sans-serif; letter-spacing: -.04em; }
+.hidden { display: none; }
+
+.footer-bar { bottom: 0; left: 0; right: 0; justify-content: space-between; padding: 25px 42px; color: rgba(25,55,66,.52); font-size: 8px; }
+.footer-bar strong { color: rgba(25,55,66,.85); font-weight: 500; }.footer-pulse { width: 5px; height: 5px; margin-right: 8px; box-shadow: none; vertical-align: 1px; }.footer-tip { margin-left: 9vw; }.footer-tip span { padding: 0 8px; color: #e96b4e; }.unit { font-size: 7px; }
+
+@media (max-width: 700px) {
+  body { overflow: hidden; }
+  .topbar { padding: 20px 20px; }.topbar-right { gap: 12px; }.flight-status { display: none; }
+  .hud { top: 91px; left: 20px; gap: 18px; }.best-card { padding-left: 18px; }.score-card strong, .best-card strong { font-size: 27px; }
+  .intro-panel, .game-over-panel { top: auto; bottom: 112px; left: 20px; transform: none; }.intro-panel { width: 255px; }
+  h1 { margin-top: 12px; font-size: 68px; }.intro-copy { margin-bottom: 21px; font-size: 13px; }
+  .footer-bar { padding: 17px 20px; }.footer-tip { display: none; }
+}
