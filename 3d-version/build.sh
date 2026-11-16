@@ -6,7 +6,7 @@
 #   /gpt-5.5-xhigh/         -> Vite build, rebuilt with a relative base so
 #                              assets resolve under the subdirectory
 #   /claude-sonnet-5/       -> PRISM (static files)
-#   /grok-4.5/              -> SPARK (static files)
+#   /grok-4.5/<variant>/    -> SPARK: vanilla (static) + amp, native, pi (Vite)
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -30,9 +30,15 @@ mkdir -p dist/claude-sonnet-5/js
 cp claude-sonnet-5/index.html claude-sonnet-5/style.css dist/claude-sonnet-5/
 cp claude-sonnet-5/js/*.js dist/claude-sonnet-5/js/
 
-mkdir -p dist/grok-4.5/js
-cp grok-4.5/index.html grok-4.5/style.css dist/grok-4.5/
-cp grok-4.5/js/*.js dist/grok-4.5/js/
+# grok-4.5 has one build per harness: vanilla is static, the rest are Vite apps
+mkdir -p dist/grok-4.5/vanilla/js
+cp grok-4.5/vanilla/index.html grok-4.5/vanilla/style.css dist/grok-4.5/vanilla/
+cp grok-4.5/vanilla/js/*.js dist/grok-4.5/vanilla/js/
+for variant in amp native pi; do
+  (cd "grok-4.5/$variant" && { [ -d node_modules ] || npm ci; } && npm run build -- --base=./)
+  mkdir -p "dist/grok-4.5/$variant"
+  cp -R "grok-4.5/$variant/dist/." "dist/grok-4.5/$variant/"
+done
 
 find dist -name '.DS_Store' -delete
 echo "Built dist/:"

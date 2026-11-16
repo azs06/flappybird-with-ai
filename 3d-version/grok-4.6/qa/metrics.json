@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:5188/?debug=1",
+  "buffer": { "w": 1440, "h": 900 },
+  "css": { "w": 1440, "h": 900 },
+  "mean": { "r": 144.03, "g": 134.93, "b": 126.26 },
+  "uniqueBins": 480,
+  "samples": 12960,
+  "nonzeroRatio": 0.9938,
+  "desktopPlay": {
+    "fps": 75,
+    "drawCalls": 179,
+    "triangles": 12807,
+    "phase": "playing"
+  },
+  "title": {
+    "fps": 75,
+    "drawCalls": 165,
+    "triangles": 12201
+  }
+}

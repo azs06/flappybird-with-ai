@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Flappy Bird: Titan Edition - Ultimate Web Showcase</title>
+    <meta name="description" content="A state-of-the-art Flappy Bird clone with procedural Web Audio synthesis, 5 unlockable skins, 4 dynamic parallax realms, multi-phase boss battles, power-ups, ghost replays, and achievements." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Press+Start+2P&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐥</text></svg>" />
+  </head>
+  <body>
+    <div id="app" class="game-wrapper">
+      <header class="game-header">
+        <div class="brand">
+          <span class="brand-icon">⚡</span>
+          <span class="brand-title">FLAPPY BIRD <small>TITAN</small></span>
+        </div>
+        <div class="header-controls">
+          <button id="btn-sound-toggle" class="icon-btn" title="Toggle Audio">🔊</button>
+          <button id="btn-fullscreen" class="icon-btn" title="Toggle Fullscreen">⛶</button>
+        </div>
+      </header>
+
+      <main class="canvas-container" id="canvas-container">
+        <canvas id="gameCanvas"></canvas>
+      </main>
+
+      <footer class="game-footer">
+        <div class="control-hints">
+          <span class="hint-badge"><kbd>SPACE</kbd> / <kbd>W</kbd> / <kbd>↑</kbd> Flap</span>
+          <span class="hint-badge"><kbd>CLICK</kbd> / <kbd>TAP</kbd> Screen</span>
+          <span class="hint-badge"><kbd>ESC</kbd> Close Modals</span>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -33,6 +33,7 @@ const MODEL_META = {
   "cursor-auto": { name: "Cursor Auto", vendor: "cursor", blurb: "Cursor's automatic model routing." },
   deepseek: { name: "DeepSeek R1", vendor: "deepseek", blurb: "DeepSeek's reasoning model." },
   "gemini-2.5-pro": { name: "Gemini 2.5 Pro", vendor: "google", blurb: "Gemini CLI, Code Assistant and Copilot harnesses." },
+  "gemini-3.7-flash": { name: "Gemini 3.7 Flash", vendor: "google", blurb: "\"Titan Edition\" — a Vite build with bosses, achievements and ghost replays." },
   "gemini-3.5-flash": { name: "Gemini 3.5 Flash", vendor: "google", blurb: "Antigravity CLI runs across effort levels." },
   "gpt-4o": { name: "GPT-4o", vendor: "openai", blurb: "The 2024-era baseline, via GitHub Copilot." },
   "gpt-5-mini": { name: "GPT-5 Mini", vendor: "openai", blurb: "Small-tier GPT-5." },

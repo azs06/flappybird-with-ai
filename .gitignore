@@ -128,3 +128,6 @@ dist
 
 .playwright-mcp
 .wrangler
+# Agent playtest screenshots — kept locally, too heavy for git
+3d-version/grok-4.6/qa/**/*.png
+3d-version/grok-4.6/qa/**/*.jpg

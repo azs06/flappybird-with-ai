@@ -2,6 +2,7 @@
 # Assembles the full Cloudflare Pages site into dist/:
 #   /                -> generated gallery page (generate-index.js)
 #   /<model>/...     -> every 2D implementation, copied as-is
+#                       (Vite projects are built and their dist/ copied)
 #   /archive/...     -> pre-reorganization builds
 #   /3d-version/...  -> the 3D mini-site (built by 3d-version/build.sh)
 set -euo pipefail
@@ -18,6 +19,14 @@ for entry in */; do
   case "$name" in
     node_modules|dist|3d-version|logs) continue ;;
   esac
+  # Vite projects ship their build output, not raw source. Rebuild with a
+  # relative base so assets resolve under /<name>/.
+  if [ -f "$name/package.json" ] && grep -q '"build": *"vite build"' "$name/package.json"; then
+    (cd "$name" && { [ -d node_modules ] || npm ci; } && npm run build -- --base=./)
+    mkdir -p "dist/$name"
+    cp -R "$name/dist/." "dist/$name/"
+    continue
+  fi
   rsync -a \
     --exclude '.DS_Store' \
     --exclude 'node_modules' \

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#120c18" />
+    <title>AURELION</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Italiana&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="c"></canvas>
+
+      <div id="ui" data-phase="boot">
+        <div class="letterbox top"></div>
+        <div class="letterbox bot"></div>
+
+        <header class="chrome">
+          <div class="best-chip">
+            <span class="kicker">remembered</span>
+            <span id="best-num">0</span>
+          </div>
+          <div class="tools">
+            <button id="mute" type="button" data-ui aria-pressed="false">sound on</button>
+            <button id="pause" type="button" data-ui>hold</button>
+          </div>
+        </header>
+
+        <div id="score" hidden>0</div>
+
+        <section id="title">
+          <p class="eyebrow">a dusk canticle</p>
+          <h1 class="wordmark">Aurelion</h1>
+          <p class="tag">thread the ruins</p>
+        </section>
+
+        <p id="hint">flap to wake · space / tap</p>
+
+        <section id="dead" hidden>
+          <p class="eyebrow">the sky keeps your name</p>
+          <div class="dead-grid">
+            <div>
+              <span class="kicker">this flight</span>
+              <strong id="dead-score">0</strong>
+            </div>
+            <div>
+              <span class="kicker">remembered</span>
+              <strong id="dead-best">0</strong>
+            </div>
+          </div>
+          <p id="dead-medal" data-medal="none">no seal</p>
+          <p class="again">flap again</p>
+        </section>
+
+        <section id="paused" hidden>
+          <p class="eyebrow">held in amber</p>
+          <h2>still air</h2>
+          <p class="again">press hold or P</p>
+        </section>
+
+        <div id="toast" data-show="0"></div>
+      </div>
+
+      <div id="boot">
+        <p class="eyebrow">forging the dusk</p>
+        <p id="boot-label">loading</p>
+      </div>
+      <div id="fps" aria-live="off">-- fps</div>
+      <pre id="diag" hidden></pre>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
